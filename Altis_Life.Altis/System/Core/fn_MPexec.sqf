@@ -49,10 +49,10 @@ if (isMultiplayer && _mode == 0) then {
 		} else {
 			//--- Single execution
 			private ["_ownerID","_serverID"];
-			_serverID = owner (missionNamespace getVariable ["bis_functions_mainscope",objNull]);
+			_serverID = owner (GVAR_MNS ["bis_functions_mainscope",objNull]);
 			switch (typeName _target) do {
 				case (typeName ""): {
-					_ownerID = owner (missionNamespace getVariable [_target,objNull]);
+					_ownerID = owner (GVAR_MNS [_target,objNull]);
 				};
 				case (typeName objNull): {
 					private ["_targetCuratorUnit"];
@@ -86,10 +86,10 @@ if (isMultiplayer && _mode == 0) then {
 			if (_isPersistent) then {
 				if (typeName _target != typeName 0) then {
 					private ["_logic","_queue"];
-					_logic = missionNamespace getVariable ["bis_functions_mainscope",objNull];
-					_queue = _logic getVariable ["SYS_fnc_MP_queue",[]];
+					_logic = GVAR_MNS ["bis_functions_mainscope",objNull];
+					_queue = _logic GVAR ["SYS_fnc_MP_queue",[]];
 					_queue set [ count _queue, +SYS_fnc_MP_packet ];
-					_logic setVariable ["SYS_fnc_MP_queue",_queue,true];
+					_logic SVAR ["SYS_fnc_MP_queue",_queue,true];
 				} else {
 					["Persistent execution is not allowed when target is %1. Use %2 or %3 instead.",typeName 0,typeName objNull,typeName false] call bis_fnc_error;
 				};
@@ -99,15 +99,15 @@ if (isMultiplayer && _mode == 0) then {
 } else {
 	//--- Local execution
     private ["_canExecute"];
-    _canExecute = switch (typename _target) do {
-    	case (typename grpnull): {player in units _target};
-    	case (typename sideUnknown): {(player call bis_fnc_objectside) == _target};
+    _canExecute = switch (typeName _target) do {
+    	case (typeName grpNull): {player in units _target};
+    	case (typeName sideUnknown): {(player call bis_fnc_objectside) == _target};
     	default {true};
     };
 
     if (_canExecute) then {
-    	_function = missionnamespace getvariable _functionName;
-    	if (!isnil "_function") then {
+    	_function = GVAR_MNS _functionName;
+    	if (!isNil "_function") then {
     		//--- Function
     		if (_isCall) then {
     			_params call _function;
@@ -119,9 +119,9 @@ if (isMultiplayer && _mode == 0) then {
     		_supportInfo = supportInfo format ["*:%1*",_functionName];
     		if (count _supportInfo > 0) then {
     			//--- Scripting command
-    			_cfgRemoteExecCommands = [["CfgRemoteExecCommands"],configfile] call bis_fnc_loadClass;
-    			if (isclass (_cfgRemoteExecCommands >> _functionName)) then {
-    				_paramCount = if (typename _params == typename []) then {count _params} else {1};
+    			_cfgRemoteExecCommands = [["CfgRemoteExecCommands"],configFile] call bis_fnc_loadClass;
+    			if (isClass (_cfgRemoteExecCommands >> _functionName)) then {
+    				_paramCount = if (typeName _params == typeName []) then {count _params} else {1};
     				switch (_paramCount) do {
     					case 0: {_params call compile format ["%1",_functionName]; true};
     					case 1: {_params call compile format ["%1 (_this)",_functionName]; true};

@@ -24,7 +24,7 @@ if(!(_existingProfile == "")) exitWith {
     [_existingProfile,"SOCK_fnc_requestReceived",_ownerID,false] call life_fnc_MP;
 };
 
-_queryRequest = [_uid,_side,_name,serverKey] call APP_fnc_queryRequest;
+_queryRequest = [_uid,_side,_name] call APP_fnc_queryRequest;
 _session = [_uid,_side,_queryRequest] call APP_fnc_playerCreateSession;
 SVAR_MNS [format["%1_%2",_uid,_side], _session];
 

@@ -24,4 +24,4 @@ _numberText = "";
 	_numberText = _numberText + str _x;
 	if ((_foreachindex - _modBase) % (_mod) == 0 && _foreachindex != _digitsCount) then {_numberText = _numberText + "";};
 } foreach _digits;
-_numberText
+_numberText;

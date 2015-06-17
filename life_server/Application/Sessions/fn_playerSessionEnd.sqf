@@ -21,5 +21,11 @@ _bank = SEL(_getCachedData,3);
 _licenses = SEL(_getCachedData,5);
 _gear = SEL(_getCachedData,7);
 
-[_uid, _name, _side, _cash, _bank, _licenses, _gear] call APP_fnc_updateRequest;
-SVAR_MNS [format["%1_%2",_uid,_side], nil];
+if(EQUAL(_side,civilian)) then {
+    _arrested = SEL(_getCachedData,6);
+    [_uid, _name, _side, _cash, _bank, _licenses, _gear, _arrested] call APP_fnc_updateRequest; //Drop money, (ALT+F4, End Task, Restart PC), data saves anyways :troll:.
+} else {
+    [_uid, _name, _side, _cash, _bank, _licenses, _gear] call APP_fnc_updateRequest; //Drop money, (ALT+F4, End Task, Restart PC), data saves anyways :troll:.
+};
+
+SVAR_MNS [format["%1_%2",_uid,_side], nil]; //No point to keep this saved, it'll free some memory and CPS.
