@@ -11,7 +11,6 @@
 
 class Server
 {
-    // 0-turned off, 1-turned on, taking whitelist into account, 2-turned on, however, ignoring whitelists (default because of backward compatibility)
     mode = 1;
     class Functions
     {
