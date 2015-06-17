@@ -23,7 +23,8 @@ corpseLimit = 150;
 corpseRemovalMinTime = 999;
 corpseRemovalMaxTime = 9999;
 
-#include "Config_Master.hpp"
+#include "Application\Config\Master.hpp"
+#include "Application\Config\VirtualItems.hpp"
 
 class CfgFunctions
 {
