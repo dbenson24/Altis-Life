@@ -28,7 +28,12 @@ corpseRemovalMaxTime = 9999;
 
 class CfgFunctions
 {
-	#include Functions.h
+	#include "Functions.h"
+}
+
+class CfgRemoteExec
+{
+	#include "Application\Config\remoteExec.hpp"
 }
 
 class CfgDebriefing

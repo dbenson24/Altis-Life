@@ -1,5 +1,8 @@
-Altis-Life
+#Altis-Life
 ==========
+
+###Warning
+####This is only to be used with the 1.47+ branch of ArmA 3
 
 Altis Life / Altis Life RPG is developed by Tonic / TAW_Tonic. This contains primarily the release contain and on-going development changes to the mission.
 Altis Life RPG by Tonic is licensed under a Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License

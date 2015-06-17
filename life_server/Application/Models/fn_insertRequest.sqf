@@ -11,12 +11,10 @@ private["_uid","_name","_side","_money","_bank","_licenses","_handler","_thread"
 _uid = [_this,0,"",[""]] call BIS_fnc_param;
 _side = [_this,1,sideUnknown,[civilian]] call BIS_fnc_param;
 _name = [_this,2,"",[""]] call BIS_fnc_param;
-_key = [_this,3,0,[0]] call BIS_fnc_param;
 _money = LIFE_SETTINGS(getNumber,"starting_cash");
 _bank = LIFE_SETTINGS(getNumber,"starting_atmcash");
 
 //Error checks
-if(!(EQUAL(_key,serverKey))) exitWith {}; //Doesn't match, probably a bad request
 if((_uid == "") OR (_name == "")) exitWith {systemChat "Bad UID or name";}; //Let the client be 'lost' in 'transaction'
 
 _query = format["playerInfo:%1",_uid];

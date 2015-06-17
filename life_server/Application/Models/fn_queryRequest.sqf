@@ -15,10 +15,7 @@ private["_uid","_side","_query","_queryResult","_qResult","_handler","_thread","
 _uid = [_this,0,"",[""]] call BIS_fnc_param;
 _side = [_this,1,sideUnknown,[civilian]] call BIS_fnc_param;
 _name = [_this,2,"",[""]] call BIS_fnc_param;
-_key = [_this,3,0,[0]] call BIS_fnc_param;
 _noPlayer = false;
-
-if(!(EQUAL(_key,serverKey))) exitWith {}; //Doesn't match, probably a bad request
 
 _query = switch(_side) do {
 	case west: {format["playerWestFetch:%1",_uid];};
