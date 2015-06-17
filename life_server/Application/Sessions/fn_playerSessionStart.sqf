@@ -7,9 +7,10 @@
 */
 private["_uid","_side","_ownerID","_existingProfile","_queryRequest","_name"];
 _uid = [_this,0,"",[""]] call BIS_fnc_param;
+_name = [_this,3,"",[""]] call BIS_fnc_param;
+
 _side = [_this,1,sideUnknown,[civilian]] call BIS_fnc_param;
 _ownerID = [_this,2,ObjNull,[ObjNull]] call BIS_fnc_param;
-_name = [_this,3,"",[""]] call BIS_fnc_param;
 
 if(isNull _uid) exitWith {};
 if(isNull _ownerID) exitWith {};
