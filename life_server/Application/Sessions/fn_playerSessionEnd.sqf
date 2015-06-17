@@ -1,8 +1,8 @@
 #include "\life_server\script_macros.hpp"
 /*
-    Author: Dillon "Itsyuka" Modine-Thuen
-    File: fn_playerSessionEnd.sqf
-    Description: Saves all data to the MySQL from the Memory.
+	Author: Dillon "Itsyuka" Modine-Thuen
+	File: fn_playerSessionEnd.sqf
+	Description: Saves all data to the MySQL from the Memory.
 */
 private["_unit","_id","_uid","_name"];
 _unit = SEL(_this,0);
@@ -22,10 +22,10 @@ _licenses = SEL(_getCachedData,5);
 _gear = SEL(_getCachedData,7);
 
 if(EQUAL(_side,civilian)) then {
-    _arrested = SEL(_getCachedData,6);
-    [_uid, _name, _side, _cash, _bank, _licenses, _gear, _arrested] call APP_fnc_updateRequest; //Drop money, (ALT+F4, End Task, Restart PC), data saves anyways :troll:.
+	_arrested = SEL(_getCachedData,6);
+	[_uid, _name, _side, _cash, _bank, _licenses, _gear, _arrested] call APP_fnc_updateRequest; //Drop money, (ALT+F4, End Task, Restart PC), data saves anyways :troll:.
 } else {
-    [_uid, _name, _side, _cash, _bank, _licenses, _gear] call APP_fnc_updateRequest; //Drop money, (ALT+F4, End Task, Restart PC), data saves anyways :troll:.
+	[_uid, _name, _side, _cash, _bank, _licenses, _gear] call APP_fnc_updateRequest; //Drop money, (ALT+F4, End Task, Restart PC), data saves anyways :troll:.
 };
 
 SVAR_MNS [format["%1_%2",_uid,_side], nil]; //No point to keep this saved, it'll free some memory and CPS.

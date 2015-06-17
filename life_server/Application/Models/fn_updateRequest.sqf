@@ -1,12 +1,12 @@
 #include "\life_server\script_macros.hpp"
 /*
-    File: fn_updateRequest.sqf
-    Author: Bryan "Tonic" Boardwine
-    Revised: Dillon "Itsyuka" Modine-Thuen
-    Created: Jun 17, 2015
-    
-    Description:
-    Updates the player's information to the database.
+	File: fn_updateRequest.sqf
+	Author: Bryan "Tonic" Boardwine
+	Revised: Dillon "Itsyuka" Modine-Thuen
+	Created: Jun 17, 2015
+
+	Description:
+	Updates the player's information to the database.
 */
 private["_uid","_side","_cash","_bank","_licenses","_gear","_name","_query","_thread"];
 _uid = [_this,0,"",[""]] call BIS_fnc_param;

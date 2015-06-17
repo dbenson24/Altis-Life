@@ -1,11 +1,11 @@
 #include "\life_server\script_macros.hpp"
 /*
-    File: fn_invHandler.sqf
-    Author: Dillon "Itsyuka" Modine-Thuen
-    Created: Jun 17, 2015
-    
-    Description:
-    N/A
+	File: fn_invHandler.sqf
+	Author: Dillon "Itsyuka" Modine-Thuen
+	Created: Jun 17, 2015
+
+	Description:
+	N/A
 */
 private[""];
 _math = [_this,0,false,[false]] call BIS_fnc_param; //true = add; false = SUB;

@@ -15,7 +15,6 @@ private["_uid","_side","_query","_queryResult","_qResult","_handler","_thread","
 _uid = [_this,0,"",[""]] call BIS_fnc_param;
 _side = [_this,1,sideUnknown,[civilian]] call BIS_fnc_param;
 _name = [_this,2,"",[""]] call BIS_fnc_param;
-_noPlayer = false;
 
 _query = switch(_side) do {
 	case west: {format["playerWestFetch:%1",_uid];};
@@ -34,7 +33,7 @@ diag_log format["Result: %1",_queryResult];
 diag_log "------------------------------------------------";
 
 if((typeName _queryResult == "STRING") || (count _queryResult == 0)) then {
-	[_uid,_side,_name,serverKey] call APP_fnc_insertRequest;
+	[_uid,_side,_name] call APP_fnc_insertRequest;
 };
 
 //Blah conversion thing from a2net->extdb

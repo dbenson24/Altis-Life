@@ -1,11 +1,11 @@
 #include "\life_server\script_macros.hpp"
 /*
-    File: fn_playerGetSession.sqf
-    Author: Dillon "Itsyuka" Modine-Thuen
-    Created: Jun 17, 2015
-    
-    Description:
-    Gets information from session data
+	File: fn_playerGetSession.sqf
+	Author: Dillon "Itsyuka" Modine-Thuen
+	Created: Jun 17, 2015
+
+	Description:
+	Gets information from session data
 */
 private["_uid","_side","_selection","_data","_return"];
 _uid = [_this,0,"",[""]] call BIS_fnc_param;
