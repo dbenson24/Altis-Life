@@ -4,7 +4,7 @@
 	class Commands:
 		List of whitelisted scripting commands that is allowed to be executed by BIS_fnc_MP, APP_fnc_MP, remoteExec, or remoteExecCall
 	mode:
-		0: remoteExec check turned off
+		0: remoteExec turned off
 		1: remoteExec turned on with whitelisting
 		2: remoteExec turned on ignoring whitelisting
 */
