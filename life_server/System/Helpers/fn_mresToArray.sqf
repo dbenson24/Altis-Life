@@ -1,4 +1,4 @@
-#include "\life_server\scripting_macros.hpp"
+#include "\life_server\script_macros.hpp"
 /*
 	File: fn_mresToArray.sqf
 	Author: Bryan "Tonic" Boardwine";

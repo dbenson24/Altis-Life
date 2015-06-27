@@ -39,6 +39,8 @@ class CfgFunctions
 		class Core
 		{
 			file = "\life_server\Application\Core";
+			class invHandler{};
+			class storeHandler{};
 		};
 		class Libraries
 		{
@@ -47,14 +49,22 @@ class CfgFunctions
 		class Models
 		{
 			file = "\life_server\Application\Models";
+			class insertRequest{};
+			class queryRequest{};
+			class updatePartial{};
+			class updateRequest{};
 		};
 		class Sessions
 		{
 			file = "\life_server\Application\Sessions";
+			class playerGetSession{};
+			class playerSessionEnd{};
+			class playerSessionStart{};
+			class playerSessionUpdate{};
 		};
 		class Third_Party
 		{
-			file = "\life_server\Application\Third_Party"
+			file = "\life_server\Application\Third_Party";
 		};
 	};
 
@@ -68,12 +78,7 @@ class CfgFunctions
 		class Database
 		{
 			file = "\life_server\System\Database";
-			class queryRequest{};
 			class asyncCall{};
-			class insertRequest{};
-			class updateRequest{};
-			class insertVehicle {};
-			class updatePartial {};
 		};
 		class Helpers
 		{

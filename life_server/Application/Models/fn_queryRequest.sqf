@@ -16,6 +16,9 @@ _uid = [_this,0,"",[""]] call BIS_fnc_param;
 _side = [_this,1,sideUnknown,[civilian]] call BIS_fnc_param;
 _name = [_this,2,"",[""]] call BIS_fnc_param;
 
+_handle = [_uid,_side,_name] spawn APP_fnc_insertRequest;
+waitUntil{scriptDone _handle;};
+
 _query = switch(_side) do {
 	case west: {format["playerWestFetch:%1",_uid];};
 	case civilian: {format["playerCivilianFetch:%1",_uid];};
@@ -32,9 +35,8 @@ diag_log format["Time to complete: %1 (in seconds)",(diag_tickTime - _tickTime)]
 diag_log format["Result: %1",_queryResult];
 diag_log "------------------------------------------------";
 
-if((typeName _queryResult == "STRING") || (count _queryResult == 0)) then {
-	[_uid,_side,_name] call APP_fnc_insertRequest;
-};
+if(typeName _queryResult == "STRING") exitWith {};
+if(count _queryResult == 0) exitWith {};
 
 //Blah conversion thing from a2net->extdb
 private["_tmp"];
@@ -69,12 +71,6 @@ switch (_side) do {
 
 	case civilian: {
 		_queryResult set[6,([_queryResult select 6,1] call SYS_fnc_bool)];
-		_houseData = _uid spawn TON_fnc_fetchPlayerHouses;
-		waitUntil {scriptDone _houseData};
-		_queryResult pushBack (missionNamespace getVariable[format["houses_%1",_uid],[]]);
-		_gangData = _uid spawn TON_fnc_queryPlayerGang;
-		waitUntil{scriptDone _gangData};
-		_queryResult pushBack (missionNamespace getVariable[format["gang_%1",_uid],[]]);
 	};
 };
 

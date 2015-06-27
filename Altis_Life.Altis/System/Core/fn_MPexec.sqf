@@ -27,7 +27,7 @@ _isCall =	[_varValue,5,false,[false]] call bis_fnc_param;
 _callerName = [_varValue,6,"",[""]] call bis_fnc_param;
 _callerUID = [_varValue,7,"",[""]] call bis_fnc_param;
 
-if(!(["APP_fnc_",_functionName] call BIS_fnc_inString) && {(toLower(_functionName) in ["app_fnc_insertrequest","app_fnc_queryrequest","app_fnc_playersessionend","app_fnc_playercreatesession","app_fnc_playergetsession","app_fnc_playergetsession","app_fnc_invhandler"])} && {!(toLower(_functionName) in ["bis_fnc_execvm","bis_fnc_effectkilledairdestruction","bis_fnc_effectkilledairdestructionstage2","life_fnc_stripDownPlayer"])}) exitWith {false};
+//if(!(["APP_fnc_",_functionName] call BIS_fnc_inString) && {(toLower(_functionName) in ["app_fnc_insertrequest","app_fnc_queryrequest","app_fnc_playersessionend","app_fnc_playercreatesession","app_fnc_playergetsession","app_fnc_playergetsession","app_fnc_invhandler"])} && {!(toLower(_functionName) in ["bis_fnc_execvm","bis_fnc_effectkilledairdestruction","bis_fnc_effectkilledairdestructionstage2","life_fnc_stripDownPlayer"])}) exitWith {false};
 
 if(_functionName == "bis_fnc_execvm") then {
 	_param2 = _params select 1;

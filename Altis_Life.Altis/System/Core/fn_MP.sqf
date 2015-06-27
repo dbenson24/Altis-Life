@@ -25,7 +25,7 @@ with missionNamespace do {
 	private ["_params","_functionName","_target","_isPersistent","_isCall","_ownerID"];
 	_params = 	[_this,0,[]] call bis_fnc_param;
 	_functionName =	[_this,1,"",[""]] call bis_fnc_param;
-	_target =	[_this,2,true,[objnull,true,0,[],sideUnknown,grpnull,""]] call bis_fnc_param;
+	_target =	[_this,2,true,[objNull,true,0,[],sideUnknown,grpNull,""]] call bis_fnc_param;
 	_isPersistent =	false;
 	_isCall =	[_this,4,false,[false]] call bis_fnc_param;
 

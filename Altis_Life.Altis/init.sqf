@@ -1,6 +1,6 @@
 StartProgress = false;
 enableSaving[false,false];
 
-life_versionInfo = "Altis Life RPG v5";
+life_versionInfo = "Altis Life RPG Revised";
 
 StartProgress = true;

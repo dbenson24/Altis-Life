@@ -10,22 +10,22 @@ _id = SEL(_this,1);
 _uid = SEL(_this,2);
 _name = SEL(_this,3);
 
-if(isNull _unit) exitWith {}; //These people leaving too early.
+if({isNull _unit}) exitWith {}; /* These people leaving too early. */
 _side = (side _unit);
 
 _getCachedData = GVAR_MNS [format["%1_%2",_uid,_side], ""];
-if(EQUAL(_getCachedData,"")) exitWith {}; //Player Data wasn't cached, probably decided to leave before session started.
+if(EQUAL(_getCachedData,"")) exitWith {}; /* Player Data wasn't cached, probably decided to leave before session started. */
 
 _cash = SEL(_getCachedData,2);
 _bank = SEL(_getCachedData,3);
 _licenses = SEL(_getCachedData,5);
 _gear = SEL(_getCachedData,7);
 
-if(EQUAL(_side,civilian)) then {
+if(EQUAL(_side,civilian)) then [{
 	_arrested = SEL(_getCachedData,6);
-	[_uid, _name, _side, _cash, _bank, _licenses, _gear, _arrested] call APP_fnc_updateRequest; //Drop money, (ALT+F4, End Task, Restart PC), data saves anyways :troll:.
-} else {
-	[_uid, _name, _side, _cash, _bank, _licenses, _gear] call APP_fnc_updateRequest; //Drop money, (ALT+F4, End Task, Restart PC), data saves anyways :troll:.
-};
+	[_uid, _name, _side, _cash, _bank, _licenses, _gear, _arrested] call APP_fnc_updateRequest; /* Drop money, (ALT+F4, End Task, Restart PC), data saves anyways :troll:. */
+}, {
+	[_uid, _name, _side, _cash, _bank, _licenses, _gear] call APP_fnc_updateRequest; /* Drop money, (ALT+F4, End Task, Restart PC), data saves anyways :troll:. */
+}];
 
-SVAR_MNS [format["%1_%2",_uid,_side], nil]; //No point to keep this saved, it'll free some memory and CPS.
+SVAR_MNS [format["%1_%2",_uid,_side], nil]; /* No point to keep this saved, it'll free some memory and CPS. */

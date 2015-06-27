@@ -9,23 +9,24 @@
 */
 private["_uid","_side","_ownerID","_existingProfile","_queryRequest","_name"];
 _uid = [_this,0,"",[""]] call BIS_fnc_param;
-_name = [_this,3,"",[""]] call BIS_fnc_param;
-
+_data = [_this,1,[],[[]]] call BIS_fnc_param;
 _side = [_this,1,sideUnknown,[civilian]] call BIS_fnc_param;
-_ownerID = [_this,2,ObjNull,[ObjNull]] call BIS_fnc_param;
+_name = [_this,2,"",[""]] call BIS_fnc_param;
+_owner = [_this,3,ObjNull,[ObjNull]] call BIS_fnc_param;
 
 if(EQUAL(_uid,"")) exitWith {};
-if(isNull _ownerID) exitWith {};
+if(isNull _owner) exitWith {};
 if(EQUAL(_name,"")) exitWith {};
-_ownerID = owner _ownerID;
+_ownerID = owner _owner;
 
 _existingProfile = GVAR_MNS [format["%1_%2",_uid,_side], ""];
-if(!(_existingProfile == "")) exitWith {
-	[_existingProfile,"SOCK_fnc_requestReceived",_ownerID,false] call life_fnc_MP;
+if(!(EQUAL(_existingProfile,""))) exitWith {
+	[_existingProfile,"APP_fnc_requestReceived",_ownerID,false] call SYS_fnc_MP;
 };
 
 _queryRequest = [_uid,_side,_name] call APP_fnc_queryRequest;
-_session = [_uid,_side,_queryRequest] call APP_fnc_playerCreateSession;
-SVAR_MNS [format["%1_%2",_uid,_side], _session];
+SVAR_MNS [format["%1_%2",_uid,_side], _queryRequest];
 
-[_queryRequest,"SOCK_fnc_requestReceived",_ownerID,false] call life_fnc_MP;
+diag_log format["Data: %1",_queryRequest];
+
+[_queryRequest,"APP_fnc_requestReceived",_ownerID,false] call SYS_fnc_MP;

@@ -13,9 +13,10 @@ _side = [_this,1,sideUnknown,[civilian]] call BIS_fnc_param;
 _name = [_this,2,"",[""]] call BIS_fnc_param;
 _money = LIFE_SETTINGS(getNumber,"starting_cash");
 _bank = LIFE_SETTINGS(getNumber,"starting_atmcash");
+_queryResult = "";
 
 //Error checks
-if((_uid == "") OR (_name == "")) exitWith {systemChat "Bad UID or name";}; //Let the client be 'lost' in 'transaction'
+if((_uid == "") OR (_name == "")) exitWith {diag_log "Bad UID or name";}; //Let the client be 'lost' in 'transaction'
 
 _query = format["playerInfo:%1",_uid];
 
@@ -30,8 +31,7 @@ diag_log format["Result: %1",_queryResult];
 diag_log "------------------------------------------------";
 
 //Double check to make sure the client isn't in the database...
-if(typeName _queryResult == "STRING") exitWith {[[],"SOCK_fnc_dataQuery",(owner _returnToSender),false] call life_fnc_MP;}; //There was an entry!
-if(count _queryResult != 0) exitWith {[[],"SOCK_fnc_dataQuery",(owner _returnToSender),false] call life_fnc_MP;};
+if(EQUAL(_queryResult,true)) exitWith {false}; //There was an entry!
 
 //Clense and prepare some information.
 _name = [_name] call SYS_fnc_mresString; //Clense the name of bad chars.
