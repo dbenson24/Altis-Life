@@ -8,3 +8,5 @@
 .idea
 *.db
 Altis_Life_OLD.Altis
+*.bifsm
+*.cfg

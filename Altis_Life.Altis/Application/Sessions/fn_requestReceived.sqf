@@ -22,8 +22,8 @@ if(!(EQUAL(steamid,SEL(_this,0)))) exitWith {[] call APP_fnc_dataQuery;};
 
 //Lets make sure some vars are not set before hand.. If they are get rid of them, hopefully the engine purges past variables but meh who cares.
 if(!isServer && (!isNil "life_adminlevel" OR !isNil "life_coplevel")) exitWith {
-	[[profileName,getPlayerUID player,"VariablesAlreadySet"],"SPY_fnc_cookieJar",false,false] call life_fnc_MP;
-	[[profileName,format["Variables set before client initialization...\nlife_adminlevel: %1\nlife_coplevel: %2",life_adminlevel,life_coplevel]],"SPY_fnc_notifyAdmins",true,false] call life_fnc_MP;
+	[[profileName,getPlayerUID player,"VariablesAlreadySet"],"SPY_fnc_cookieJar",false,false] call SYS_fnc_MP;
+	[[profileName,format["Variables set before client initialization...\nlife_adminlevel: %1\nlife_coplevel: %2",life_adminlevel,life_coplevel]],"SPY_fnc_notifyAdmins",true,false] call SYS_fnc_MP;
 	sleep 0.9;
 	failMission "SpyGlass";
 };
@@ -39,7 +39,7 @@ if(count (SEL(_this,5)) > 0) then {
 };
 
 life_gear = SEL(_this,7);
-[true] call life_fnc_loadGear;
+//[true] call life_fnc_loadGear;
 
 //Parse side specific information.
 switch(playerSide) do {

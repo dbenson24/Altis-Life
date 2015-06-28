@@ -21,7 +21,7 @@ _ownerID = owner _owner;
 
 _existingProfile = GVAR_MNS [format["%1_%2",_uid,_side], ""];
 if(!(EQUAL(_existingProfile,""))) exitWith {
-	[_existingProfile,"APP_fnc_requestReceived",_ownerID,false] call SYS_fnc_MP;
+	_existingProfile remoteExec ["APP_fnc_requestReceived",_ownerID];
 };
 
 _queryRequest = [_uid,_side,_name] call APP_fnc_queryRequest;
@@ -29,4 +29,4 @@ SVAR_MNS [format["%1_%2",_uid,_side], _queryRequest];
 
 diag_log format["Data: %1",_queryRequest];
 
-[_queryRequest,"APP_fnc_requestReceived",_ownerID,false] call SYS_fnc_MP;
+_queryRequest remoteExec ["APP_fnc_requestReceived",_ownerID];

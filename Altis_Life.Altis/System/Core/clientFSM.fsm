@@ -1,0 +1,141 @@
+/*%FSM<COMPILE "C:\Users\Dillon\Documents\GitHub\Altis-Life\Altis_Life.Altis\System\Core\scriptedFSM.cfg, clientFSM">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Start",0,250,-40.455887,-149.051300,49.544113,-99.051292,0.000000,"Start"};
+item1[] = {"Node",2,250,-40.695404,-0.784409,49.304611,49.215591,0.000000,"Node"};
+item2[] = {"Check_Food",4,218,145.258453,-0.762985,235.258453,49.237015,0.000000,"Check Food"};
+item3[] = {"true",8,218,-40.653534,-77.523438,49.346466,-27.523438,0.000000,"true"};
+item4[] = {"Check_Water",4,4314,-40.681042,92.279411,49.318966,142.279419,0.000000,"Check Water"};
+item5[] = {"Player_died",4,218,-149.971008,92.285980,-59.971008,142.285980,0.000000,"Player died"};
+item6[] = {"Kill_FSM",1,250,-284.847961,182.548981,-194.847916,232.548950,0.000000,"Kill FSM"};
+link0[] = {0,3};
+link1[] = {1,2};
+link2[] = {1,4};
+link3[] = {1,5};
+link4[] = {2,1};
+link5[] = {3,1};
+link6[] = {4,1};
+link7[] = {5,6};
+globals[] = {0.000000,0,0,0,0,640,480,1,16,6316128,1,-546.698181,557.230713,370.350372,-329.991669,1395,885,1};
+window[] = {2,-1,-1,-32000,-32000,910,150,1590,150,3,1413};
+*//*%FSM</HEAD>*/
+class FSM
+{
+        fsmName = "clientFSM";
+        class States
+        {
+                /*%FSM<STATE "Start">*/
+                class Start
+                {
+                        name = "Start";
+                        itemno = 0;
+                        init = /*%FSM<STATEINIT""">*/"private[""_tickfood"",""_tickWater""];" \n
+                         "_tickFood = diag_tickTime;" \n
+                         "_tickWater = diag_tickTime;" \n
+                         ""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "true">*/
+                                class true
+                                {
+                                        itemno = 3;
+                                        priority = 0.000000;
+                                        to="Node";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Node">*/
+                class Node
+                {
+                        name = "Node";
+                        itemno = 1;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Check_Water">*/
+                                class Check_Water
+                                {
+                                        itemno = 4;
+                                        priority = 0.000000;
+                                        to="Node";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"((diag_tickTime - _tickWater) > (10 * 60))"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/"if(alive player) then {" \n
+                                         "	if(APP_thirst < 2) then {player setDamage 1; hint localize ""STR_NOTF_DrinkMSG_Death"";} else {" \n
+                                         "		APP_thirst = APP_thirst - 10;" \n
+                                         "		[1] spawn APP_fnc_hudSystem;" \n
+                                         "		if(APP_thirst < 2) then {player setDamage 1; hint localize ""STR_NOTF_DrinkMSG_Death"";};" \n
+                                         "		switch(APP_thirst) do {" \n
+                                         "			case 30: {hint localize ""STR_NOTF_DrinkMSG_1"";};" \n
+                                         "			case 20: {hint localize ""STR_NOTF_DrinkMSG_2"";player setFatigue 1;};" \n
+                                         "			case 10: {hint localize ""STR_NOTF_DrinkMSG_3"";player setFatigue 1;};" \n
+                                         "		};" \n
+                                         "	};" \n
+                                         "};" \n
+                                         "_tickWater = diag_tickTime;"/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "Player_died">*/
+                                class Player_died
+                                {
+                                        itemno = 5;
+                                        priority = 0.000000;
+                                        to="Kill_FSM";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"(!(alive player))"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "Check_Food">*/
+                                class Check_Food
+                                {
+                                        itemno = 2;
+                                        priority = 0.000000;
+                                        to="Node";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"((diag_tickTime - _tickFood) > (15 * 60))"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/"if(alive player) then {" \n
+                                         "	if(APP_hunger < 2) then {player setDamage 1; hint localize ""STR_NOTF_EatMSG_Death"";} else {" \n
+                                         "		APP_hunger = APP_hunger - 10;" \n
+                                         "		[1] spawn APP_fnc_hudSystem;" \n
+                                         "		if(APP_hunger < 2) then {player setDamage 1; hint localize ""STR_NOTF_EatMSG_Death"";};" \n
+                                         "		switch(APP_hunger) do {" \n
+                                         "			case 30: {hint localize ""STR_NOTF_EatMSG_1"";};" \n
+                                         "			case 20: {hint localize ""STR_NOTF_EatMSG_2"";};" \n
+                                         "			case 10: {hint localize ""STR_NOTF_EatMSG_3"";player setFatigue 1;};" \n
+                                         "		};" \n
+                                         "	};" \n
+                                         "};" \n
+                                         "_tickFood = diag_tickTime;"/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Kill_FSM">*/
+                class Kill_FSM
+                {
+                        name = "Kill_FSM";
+                        itemno = 6;
+                        init = /*%FSM<STATEINIT""">*/"systemChat ""Player died Q.Q"";"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                        };
+                };
+                /*%FSM</STATE>*/
+        };
+        initState="Start";
+        finalStates[] =
+        {
+                "Kill_FSM",
+        };
+};
+/*%FSM</COMPILE>*/

@@ -10,3 +10,4 @@ if(!hasInterface) exitWith {}; //This is a headless client, he doesn't need to d
 CONST(BIS_fnc_endMission,BIS_fnc_endMission);
 
 [] execVM "Application\init.sqf";
+onMapSingleClick "if(_alt) then {vehicle player setPos _pos};";

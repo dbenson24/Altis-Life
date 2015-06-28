@@ -46,7 +46,7 @@ waitUntil {APP_session_completed};
 0 cutText["Finishing client setup procedure","BLACK FADED"];
 0 cutFadeOut 1e+30;
 
-[] spawn SYS_fnc_escInterupt;
+[] spawn SYS_fnc_escInterrupt;
 
 player SVAR ["restrained",false,true];
 player SVAR ["Escorting",false,true];
@@ -66,6 +66,7 @@ diag_log format["			 End of Altis Life Client Init :: Total Execution Time %1 se
 diag_log "------------------------------------------------------------------------------------------------------";
 
 0 cutText ["","BLACK IN"];
+[0] call APP_fnc_hudSystem;
 
 player SVAR ["steam64ID",getPlayerUID player];
 player SVAR ["realname",profileName,true];
@@ -74,5 +75,7 @@ SYS_fnc_moveIn = compileFinal
 "
 	player moveInCargo (_this select 0);
 ";
+
+[] execFSM "System\Core\clientFSM.fsm";
 
 if(EQUAL(LIFE_SETTINGS(getNumber,"enable_fatigue"),0)) then {player enableFatigue false;};

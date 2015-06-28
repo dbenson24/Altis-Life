@@ -8,6 +8,7 @@ class Application
 	class Libraries
 	{
 		file = "Application\Libraries";
+		class hudSystem{};
 	};
 	class Sessions
 	{
@@ -44,7 +45,7 @@ class System
 	class Libraries
 	{
 		file = "System\Libraries";
-		class escapeInterrupt{};
+		class escInterrupt{};
 		class setupEVH{};
 	};
 };

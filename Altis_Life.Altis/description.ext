@@ -23,8 +23,15 @@ corpseLimit = 150;
 corpseRemovalMinTime = 999;
 corpseRemovalMaxTime = 9999;
 
+#include "Application\Dialog\MasterHandler.h"
 #include "Application\Config\Master.hpp"
 #include "Application\Config\VirtualItems.hpp"
+
+class RscTitles {
+	#include "Application\Dialog\ui.hpp"
+    #include "Application\Dialog\progress.hpp"
+    #include "Application\Dialog\hud_nameTags.h"
+}
 
 class CfgFunctions
 {
