@@ -16,6 +16,7 @@ _cash = [_this,3,0,[0]] call BIS_fnc_param;
 _bank = [_this,4,5000,[0]] call BIS_fnc_param;
 _licenses = [_this,5,[],[[]]] call BIS_fnc_param;
 _gear = [_this,6,[],[[]]] call BIS_fnc_param;
+_arrested [_this,6,false,[false]] call BIS_fnc_param;
 
 //Get to those error checks.
 if((_uid == "") OR (_name == "")) exitWith {};
@@ -25,6 +26,7 @@ _name = [_name] call SYS_fnc_mresString;
 _gear = [_gear] call SYS_fnc_mresArray;
 _cash = [_cash] call SYS_fnc_numberSafe;
 _bank = [_bank] call SYS_fnc_numberSafe;
+_arrested = [_arrested] call SYS_fnc_bool;
 
 //Does something license related but I can't remember I only know it's important?
 for "_i" from 0 to count(_licenses)-1 do {
@@ -36,9 +38,13 @@ _licenses = [_licenses] call SYS_fnc_mresArray;
 
 switch (_side) do {
 	case west: {_query = format["updatePlayerWest:%1:%2:%3:%4:%5:%6",_name,_cash,_bank,_gear,_licenses,_uid];};
-	case civilian: {_query = format["updatePlayerCivilian:%1:%2:%3:%4:%5:%6:7",_name,_cash,_bank,_gear,_licenses,_uid,[_this select 7] call SYS_fnc_bool];};
+	case civilian: {_query = format["updatePlayerCivilian:%1:%2:%3:%4:%5:%6:7",_name,_cash,_bank,_gear,_licenses,_uid,_arrested];};
 	case independent: {_query = format["updatePlayerIndependent:%1:%2:%3:%4:%5:%6",_name,_cash,_bank,_gear,_licenses,_uid];};
 };
 
-waitUntil {sleep (random 0.3); !SYS_Async_Active};
-_queryResult = [_query,1] call SYS_fnc_asyncCall;
+diag_log "------------- Player Update Query Request -------------";
+diag_log format["QUERY: %1",_query];
+diag_log "------------------------------------------------";
+
+waitUntil{sleep (random 0.3); !SYS_Async_Active};
+[_query,1] call SYS_fnc_asyncCall;

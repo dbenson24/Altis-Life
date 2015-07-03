@@ -7,36 +7,24 @@
 		0: remoteExec turned off
 		1: remoteExec turned on with whitelisting
 		2: remoteExec turned on ignoring whitelisting
+	allowedTargets:
+		0: Everyone (including server)
+		1: Only Clients
+		2: Only Server
+	jip:
+		1 = True
+		0 = False
+
 */
 
-/* Functions/Commands the server can execute */
-class Server
-{
-	mode = 2;
-	class Functions
-	{
-		class APP_fnc_playerSessionStart {};
-		class SYS_fnc_MP {};
-		class SYS_fnc_MPexec {};
-		class APP_fnc_requestReceived {};
-	};
-	class Commands
-	{
-		/* Eventually */
-	};
-};
-
 /* Functions/Commands the client can execute */
-class Client
+mode = 1;
+class Functions
 {
-	mode = 2;
-	class Functions
-	{
-		jip = true;
-		class APP_fnc_playerSessionStart {allowedTargets=2; jip = false;};
-	};
-	class Commands
-	{
-		/* Is there a point into allow commands to be executed over the client? */
-	};
+	jip = 0;
+	class APP_fnc_playerSessionStart {allowedTargets=2;};
+};
+class Commands
+{
+	/* Is there a point into allow commands to be executed over the client? */
 };

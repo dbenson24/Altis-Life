@@ -10,8 +10,10 @@ _id = SEL(_this,1);
 _uid = SEL(_this,2);
 _name = SEL(_this,3);
 
-if({isNull _unit}) exitWith {}; /* These people leaving too early. */
+if(isNull _unit) exitWith {}; /* These people leaving too early. */
 _side = (side _unit);
+
+diag_log format["Unit: %1 || ID: %2 || UID: %3 || Name: %4 || Side: %5",_unit,_id,_uid,_name,_side];
 
 _getCachedData = GVAR_MNS [format["%1_%2",_uid,_side], ""];
 if(EQUAL(_getCachedData,"")) exitWith {}; /* Player Data wasn't cached, probably decided to leave before session started. */
