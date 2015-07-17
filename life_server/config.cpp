@@ -40,11 +40,15 @@ class CfgFunctions
 		{
 			file = "\life_server\Application\Core";
 			class invHandler{};
-			class storeHandler{};
+			//class storeHandler{};
 		};
 		class Libraries
 		{
 			file = "\life_server\Application\Libraries";
+			class getPlayerGear{};
+			class updatePlayerGear{};
+			class loadoutHandler{};
+			class stripDownPlayer{};
 		};
 		class Models
 		{
@@ -74,6 +78,9 @@ class CfgFunctions
 		class Core
 		{
 			file = "\life_server\System\Core";
+			class itemHandler{};
+			class accType{};
+			class fetchCfgDetails{};
 		};
 		class Database
 		{

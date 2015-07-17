@@ -1,11 +1,11 @@
 private ["_params","_code"];
 
 _params = [];
-_code = [_this,0,{},[{},[]]] call bis_fnc_param;
+_code = param [{},[{},[]]];
 
 if (typename _code == typename []) then {
-	_params = [_this,0,[]] call bis_fnc_param;
-	_code = [_this,1,{},[{}]] call bis_fnc_param;
+	_params = param [0,[]];
+	_code = param [1,{},[{}]];
 };
 
 _params call _code

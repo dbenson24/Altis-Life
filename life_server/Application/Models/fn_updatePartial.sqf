@@ -9,24 +9,24 @@
 	less network intensive towards data flowing through it for updates.
 */
 private["_uid","_side","_mode","_query"];
-_uid = [_this,0,"",[""]] call BIS_fnc_param;
-_side = [_this,1,sideUnknown,[civilian]] call BIS_fnc_param;
-_mode = [_this,2,0,[0]] call BIS_fnc_param;
+_uid = param [0,"",[""]];
+_side = param [1,sideUnknown,[civilian]];
+_mode = param [2,0,[0]];
 
 _query = "";
 
 switch(_mode)do {
-	case 0: { //Cash
-	   _value = [_this,3,0,[0]] call BIS_fnc_param;
+	case 0: { /* Cash */
+	   _value = param [3,0,[0]];
 	   _query = format["updatePlayerCash:%1:%2",_value,_uid];
 	};
-	case 1: { //Bank
-	   _value = [_this,3,0,[0]] call BIS_fnc_param;
+	case 1: { /* Bank */
+	   _value = param [3,0,[0]];
 	   _query = format["updatePlayerBank:%1:%2",_value,_uid];
 	};
-	case 2: { //Licenses
-	   _value = [_this,3,[],[[]]] call BIS_fnc_param;
-	   //Does something license related but I can't remember I only know it's important?
+	case 2: { /* Licenses */
+	   _value = param [3,[],[[]]];
+	   /* Does something license related but I can't remember I only know it's important? */
 	   for "_i" from 0 to count(_value)-1 do {
 	   	_bool = [(_value select _i) select 1] call DB_fnc_bool;
 	   	_value set[_i,[(_value select _i) select 0,_bool]];
@@ -38,8 +38,8 @@ switch(_mode)do {
 	   	case independent: {_query = format["updatePlayerIndependentLicenses:%1:%2",_value,_uid];};
 	   };
 	};
-	case 3: { //Gear
-	   _value = [_this,3,[],[[]]] call BIS_fnc_param;
+	case 3: { /* Gear */
+	   _value = param [3,[],[[]]];
 	   _value = [_value] call SYS_fnc_mresArray;
 	   switch(_side) do {
 			case west: {_query = format["updatePlayerWestGear:%1:%2",_value,_uid];};
@@ -47,15 +47,15 @@ switch(_mode)do {
 		 	case independent: {_query = format["updatePlayerIndependentGear:%1:%2",_value,_uid];};
 	   };
 	};
-	case 4: { //Arrested
+	case 4: { /* Arrested */
 	   if(EQUAL(_side,civilian)) then {
-		   _value = [_this,3,0,[0]] call BIS_fnc_param;
+		   _value = param [3,0,[0]];
 		   _query = format["updatePlayerArrested:%1:%2",_value,_uid];
 	   };
 	};
-	case 5: { //Cash and Bank
-	   _value1 = [_this,3,0,[0]] call BIS_fnc_param;
-	   _value2 = [_this,4,0,[0]] call BIS_fnc_param;
+	case 5: { /* Cash and Bank */
+	   _value1 = param [3,0,[0]];
+	   _value2 = param [4,0,[0]];
 	   _query = format["updatePlayerCashBank:%1:%2:%3",_value1,_value2,_uid];
 	};
 	case 6: {};

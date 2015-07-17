@@ -1,6 +1,6 @@
 /*
 	class Functions:
-		 List of whitelisted functions that is allowed to be executed by BIS_fnc_MP, SYS_fnc_MP, remoteExec, or remoteExecCall
+		List of whitelisted functions that is allowed to be executed by BIS_fnc_MP, SYS_fnc_MP, remoteExec, or remoteExecCall
 	class Commands:
 		List of whitelisted scripting commands that is allowed to be executed by BIS_fnc_MP, SYS_fnc_MP, remoteExec, or remoteExecCall
 	mode:

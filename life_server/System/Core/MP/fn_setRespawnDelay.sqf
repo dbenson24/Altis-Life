@@ -14,9 +14,9 @@
 */
 private ["_condition","_delayMax","_description","_delay","_return","_time"];
 
-_condition = [_this,0,{false},[{}]] call bis_fnc_param;
-_delayMax = [_this,1,0,[0]] call bis_fnc_param;
-_description = [_this,2,"",[""]] call bis_fnc_param;
+_condition = param [0,{false},[{}]];
+_delayMax = param [1,0,[0]];
+_description = param [2,"",[""]];
 _delay = 0;
 
 while {!alive player} do {

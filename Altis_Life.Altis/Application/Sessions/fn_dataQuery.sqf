@@ -15,4 +15,4 @@ _name = profileName;
 cutText[format[localize "STR_Session_Query",_uid],"BLACK FADED"];
 0 cutFadeOut 999999999;
 
-[_uid,_side,_name,_sender] remoteExec ["APP_fnc_playerSessionStart",2];
+[[_uid,_side,_name,_sender],"APP_fnc_playerSessionStart",false,false] call SYS_fnc_MP;

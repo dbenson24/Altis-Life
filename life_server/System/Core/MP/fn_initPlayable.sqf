@@ -1,4 +1,4 @@
-_code = [_this,0,{},[{}]] call bis_fnc_param;
+_code = param [0,{},[{}]];
 _codeVar = "BIS_fnc_initPlayable_code" + str (["BIS_fnc_initPlayable_code",1] call bis_fnc_counter);
 
 //--- Execute on JIPped

@@ -7,8 +7,8 @@
 	instead MySQL uses Tinyint for BOOLEAN (0 = false, 1 = true)
 */
 private["_bool","_mode"];
-_bool = [_this,0,0,[false,0]] call BIS_fnc_param;
-_mode = [_this,1,0,[0]] call BIS_fnc_param;
+_bool = param [0,0,[false,0]];
+_mode = param [1,0,[0]];
 	
 switch (_mode) do {
 	case 0: {

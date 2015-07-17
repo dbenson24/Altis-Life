@@ -9,14 +9,13 @@
 	Updates the player's information to the database.
 */
 private["_uid","_side","_cash","_bank","_licenses","_gear","_name","_query","_thread"];
-_uid = [_this,0,"",[""]] call BIS_fnc_param;
-_name = [_this,1,"",[""]] call BIS_fnc_param;
-_side = [_this,2,sideUnknown,[civilian]] call BIS_fnc_param;
-_cash = [_this,3,0,[0]] call BIS_fnc_param;
-_bank = [_this,4,5000,[0]] call BIS_fnc_param;
-_licenses = [_this,5,[],[[]]] call BIS_fnc_param;
-_gear = [_this,6,[],[[]]] call BIS_fnc_param;
-_arrested [_this,6,false,[false]] call BIS_fnc_param;
+_uid = param [0,"",[""]];
+_name = param [1,"",[""]];
+_side = param [2,sideUnknown,[civilian]];
+_cash = param [3,0,[0]];
+_bank = param [4,5000,[0]];
+_licenses = param [5,[],[[]]];
+_gear = param [6,[],[[]]];
 
 //Get to those error checks.
 if((_uid == "") OR (_name == "")) exitWith {};
@@ -26,7 +25,11 @@ _name = [_name] call SYS_fnc_mresString;
 _gear = [_gear] call SYS_fnc_mresArray;
 _cash = [_cash] call SYS_fnc_numberSafe;
 _bank = [_bank] call SYS_fnc_numberSafe;
-_arrested = [_arrested] call SYS_fnc_bool;
+
+if(EQUAL(_side,civilian)) then {
+	_arrested param [7,false,[false]];
+	_arrested = [_arrested] call SYS_fnc_bool;
+};
 
 //Does something license related but I can't remember I only know it's important?
 for "_i" from 0 to count(_licenses)-1 do {

@@ -24,11 +24,6 @@
 #define PVAR_ID(var,id) id publicVariableClient var
 #define GVAR getVariable
 #define SVAR setVariable
-#define RIFLE primaryWeapon player
-#define RIFLE_ITEMS primaryWeaponItems player
-#define PISTOL handgunWeapon player
-#define PISTOL_ITEMS handgunItems player
-#define LAUNCHER secondaryWeapon player
 #define EXTDB_FAILED(MESSAGE) \
 	APP_server_extDB_notLoaded = [true,##MESSAGE]; \
 	PVAR_ALL("life_server_extDB_notLoaded"); \
@@ -40,8 +35,8 @@
 #define CONTROL_DATAI(ctrl,index) ctrl lbData index
 
 //System Macros
-#define grpPlayer group player
-#define steamid getPlayerUID player
+#define grpPlayer group _unit
+#define steamid getPlayerUID _unit
 #define LICENSE_VARNAME(varName,flag) format["license_%1_%2",flag,M_CONFIG(getText,"Licenses",varName,"variable")]
 #define LICENSE_VALUE(varName,flag) GVAR_MNS [LICENSE_VARNAME(varName,flag),false]
 #define ITEM_VARNAME(varName) format["life_inv_%1",M_CONFIG(getText,"VirtualItems",varName,"variable")]

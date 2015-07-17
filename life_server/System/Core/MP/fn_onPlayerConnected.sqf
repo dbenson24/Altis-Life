@@ -14,13 +14,13 @@
 */
 
 private ["_function","_args","_execute"];
-_args = [_this,1,[]] call bis_fnc_param;
-_execute = [_this,2,false,[false]] call bis_fnc_param;
+_args = param [0,[]];
+_execute = param [2,false,[false]];
 
 if !(_execute) then {
 
 	if (isserver) then {
-		_function = [_this,0,"",["",{}]] call bis_fnc_param;
+		_function = param [0,"",["",{}]];
 
 		//--- Code input; convert to function
 		if (typename _function == typename {}) then {
@@ -43,7 +43,7 @@ if !(_execute) then {
 		false
 	};
 } else {
-	_function = [_this,0,"",[""]] call bis_fnc_param;
+	_function = param [0,"",[""]];
 
 	//--- Execute
 	[

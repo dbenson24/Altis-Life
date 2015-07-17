@@ -13,8 +13,6 @@ _name = SEL(_this,3);
 if(isNull _unit) exitWith {}; /* These people leaving too early. */
 _side = (side _unit);
 
-diag_log format["Unit: %1 || ID: %2 || UID: %3 || Name: %4 || Side: %5",_unit,_id,_uid,_name,_side];
-
 _getCachedData = GVAR_MNS [format["%1_%2",_uid,_side], ""];
 if(EQUAL(_getCachedData,"")) exitWith {}; /* Player Data wasn't cached, probably decided to leave before session started. */
 
@@ -25,9 +23,9 @@ _gear = SEL(_getCachedData,7);
 
 if(EQUAL(_side,civilian)) then [{
 	_arrested = SEL(_getCachedData,6);
-	[_uid, _name, _side, _cash, _bank, _licenses, _gear, _arrested] call APP_fnc_updateRequest; /* Drop money, (ALT+F4, End Task, Restart PC), data saves anyways :troll:. */
+	[_uid, _name, _side, _cash, _bank, _licenses, _gear, _arrested] spawn APP_fnc_updateRequest; /* Drop money, (ALT+F4, End Task, Restart PC), data saves anyways :troll:. */
 }, {
-	[_uid, _name, _side, _cash, _bank, _licenses, _gear] call APP_fnc_updateRequest; /* Drop money, (ALT+F4, End Task, Restart PC), data saves anyways :troll:. */
+	[_uid, _name, _side, _cash, _bank, _licenses, _gear] spawn APP_fnc_updateRequest; /* Drop money, (ALT+F4, End Task, Restart PC), data saves anyways :troll:. */
 }];
 
 SVAR_MNS [format["%1_%2",_uid,_side], nil]; /* No point to keep this saved, it'll free some memory and CPS. */

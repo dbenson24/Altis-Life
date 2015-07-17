@@ -8,9 +8,9 @@
 	descriptions... Need to write it...
 */
 private["_uid","_name","_side","_money","_bank","_licenses","_handler","_thread","_queryResult","_query","_alias"];
-_uid = [_this,0,"",[""]] call BIS_fnc_param;
-_side = [_this,1,sideUnknown,[civilian]] call BIS_fnc_param;
-_name = [_this,2,"",[""]] call BIS_fnc_param;
+_uid = param [0,"",[""]];
+_side = param [1,sideUnknown,[civilian]];
+_name = param [2,"",[""]];
 _money = LIFE_SETTINGS(getNumber,"starting_cash");
 _bank = LIFE_SETTINGS(getNumber,"starting_atmcash");
 _queryResult = "";

@@ -12,9 +12,9 @@
 	STRING - The request had invalid handles or an unknown error and is logged to the RPT.
 */
 private["_uid","_side","_query","_queryResult","_qResult","_handler","_thread","_tickTime","_loops","_returnCount"];
-_uid = [_this,0,"",[""]] call BIS_fnc_param;
-_side = [_this,1,sideUnknown,[civilian]] call BIS_fnc_param;
-_name = [_this,2,"",[""]] call BIS_fnc_param;
+_uid = param [0,"",[""]];
+_side = param [1,sideUnknown,[civilian]];
+_name = param [2,"",[""]];
 
 _handle = [_uid,_side,_name] spawn APP_fnc_insertRequest;
 waitUntil{scriptDone _handle;};

@@ -8,11 +8,11 @@
 	Starts the session and saves the data to the memory for reading
 */
 private["_uid","_side","_ownerID","_existingProfile","_queryRequest","_name"];
-_uid = [_this,0,"",[""]] call BIS_fnc_param;
-_data = [_this,1,[],[[]]] call BIS_fnc_param;
-_side = [_this,1,sideUnknown,[civilian]] call BIS_fnc_param;
-_name = [_this,2,"",[""]] call BIS_fnc_param;
-_owner = [_this,3,ObjNull,[ObjNull]] call BIS_fnc_param;
+_uid = param [0,"",[""]];
+_data = param [1,[],[[]]];
+_side = param [1,sideUnknown,[civilian]];
+_name = param [2,"",[""]];
+_owner = param [3,objNull,[objNull]];
 
 if(EQUAL(_uid,"")) exitWith {};
 if(isNull _owner) exitWith {};
@@ -21,12 +21,12 @@ _ownerID = owner _owner;
 
 _existingProfile = GVAR_MNS [format["%1_%2",_uid,_side], ""];
 if(!(EQUAL(_existingProfile,""))) exitWith {
-	_existingProfile remoteExec ["APP_fnc_requestReceived",_ownerID];
+	[_owner,_uid,_side] spawn APP_fnc_getPlayerGear;
+	[_existingProfile,"APP_fnc_requestReceived",_ownerID,false] call SYS_fnc_MP;
 };
 
 _queryRequest = [_uid,_side,_name] call APP_fnc_queryRequest;
 SVAR_MNS [format["%1_%2",_uid,_side], _queryRequest];
 
-diag_log format["Data: %1",_queryRequest];
-
-_queryRequest remoteExec ["APP_fnc_requestReceived",_ownerID];
+[_owner,_uid,_side] spawn APP_fnc_getPlayerGear;
+[_queryRequest,"APP_fnc_requestReceived",_ownerID,false] call SYS_fnc_MP;

@@ -9,7 +9,7 @@
 	any problems. The return method is 'hacky' but it's effective.
 */
 private "_array";
-_array = [_this,0,"",[""]] call BIS_fnc_param;
+_array = param [0,"",[""]];
 if(EQUAL(_array,"")) exitWith {[]};
 _array = toArray(_array);
 

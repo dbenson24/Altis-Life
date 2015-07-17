@@ -6,12 +6,12 @@
 	Inserts the vehicle into the database
 */
 private["_uid","_side","_type","_className","_color","_plate","_query","_sql"];
-_uid = [_this,0,"",[""]] call BIS_fnc_param;
-_side = [_this,1,"",[""]] call BIS_fnc_param;
-_type = [_this,2,"",[""]] call BIS_fnc_param;
-_className = [_this,3,"",[""]] call BIS_fnc_param;
-_color = [_this,4,-1,[0]] call BIS_fnc_param;
-_plate = [_this,5,-1,[0]] call BIS_fnc_param;
+_uid = param [0,"",[""]];
+_side = param [1,"",[""]];
+_type = param [2,"",[""]];
+_className = param [3,"",[""]];
+_color = param [4,-1,[0]];
+_plate = param [5,-1,[0]];
 
 //Stop bad data being passed.
 if(_uid == "" OR _side == "" OR _type == "" OR _className == "" OR _color == -1 OR _plate == -1) exitWith {};
