@@ -16,6 +16,7 @@ _cash = param [3,0,[0]];
 _bank = param [4,5000,[0]];
 _licenses = param [5,[],[[]]];
 _gear = param [6,[],[[]]];
+_arrested param [7,false,[false]];
 
 //Get to those error checks.
 if((_uid == "") OR (_name == "")) exitWith {};
@@ -27,7 +28,6 @@ _cash = [_cash] call SYS_fnc_numberSafe;
 _bank = [_bank] call SYS_fnc_numberSafe;
 
 if(EQUAL(_side,civilian)) then {
-	_arrested param [7,false,[false]];
 	_arrested = [_arrested] call SYS_fnc_bool;
 };
 
@@ -41,7 +41,7 @@ _licenses = [_licenses] call SYS_fnc_mresArray;
 
 switch (_side) do {
 	case west: {_query = format["updatePlayerWest:%1:%2:%3:%4:%5:%6",_name,_cash,_bank,_gear,_licenses,_uid];};
-	case civilian: {_query = format["updatePlayerCivilian:%1:%2:%3:%4:%5:%6:7",_name,_cash,_bank,_gear,_licenses,_uid,_arrested];};
+	case civilian: {_query = format["updatePlayerCivilian:%1:%2:%3:%4:%5:%6:%7",_name,_cash,_bank,_gear,_licenses,_uid,_arrested];};
 	case independent: {_query = format["updatePlayerIndependent:%1:%2:%3:%4:%5:%6",_name,_cash,_bank,_gear,_licenses,_uid];};
 };
 

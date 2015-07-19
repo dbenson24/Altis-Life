@@ -32,7 +32,8 @@ class playerHUD {
 		LIFE_PICTURE_HEALTH,
 		LIFE_FOOD_TEXT,
 		LIFE_WATER_TEXT,
-		LIFE_HEALTH_TEXT
+		LIFE_HEALTH_TEXT,
+		DEV
 	};
 
 	/* Background */
@@ -72,7 +73,15 @@ class playerHUD {
 	};
 
 	/* Text */
-
+	class DEV: life_RscText
+	{
+		idc = 10056;
+		text = "Development Build";
+		x = 0.91531 * safezoneW + safezoneX;
+        y = 0.8044 * safezoneH + safezoneY;
+        w = 0.120625 * safezoneW;
+        h = 0.011 * safezoneH;
+	};
 	class LIFE_FOOD_TEXT: Life_RscText
 	{
 		idc = IDC_LIFE_FOOD_TEXT;

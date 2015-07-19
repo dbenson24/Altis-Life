@@ -16,9 +16,12 @@ _side = (side _unit);
 _getCachedData = GVAR_MNS [format["%1_%2",_uid,_side], ""];
 if(EQUAL(_getCachedData,"")) exitWith {}; /* Player Data wasn't cached, probably decided to leave before session started. */
 
+diag_log format["Results: %1",_getCachedData];
+
 _cash = SEL(_getCachedData,2);
 _bank = SEL(_getCachedData,3);
 _licenses = SEL(_getCachedData,5);
+[_unit,_uid,_side,false] call APP_fnc_updatePlayerGear;
 _gear = SEL(_getCachedData,7);
 
 if(EQUAL(_side,civilian)) then [{

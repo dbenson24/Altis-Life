@@ -12,3 +12,4 @@ APP_is_arrested = false;
 APP_istazed = false;
 APP_hunger = 100;
 APP_thirst = 100;
+APP_respawned = false;

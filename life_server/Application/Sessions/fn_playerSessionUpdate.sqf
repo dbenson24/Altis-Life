@@ -40,9 +40,12 @@ switch(_mode)do {
 	case 4: { /* Arrested */
 		if(EQUAL(_side,civilian)) then {
 			_value = param [3,0,[0]];
+			_bool = param [4,false,[false]];
 			_value = [_value] call SYS_fnc_numberSafe;
 			_data set[6,_value];
-			[_uid,_side,4,_value] spawn APP_fnc_updatePartial;
+			if(_bool) { /* Only save if I say so */
+				[_uid,_side,4,_value] spawn APP_fnc_updatePartial;
+			};
 		};
 	};
 	case 5: { /* Cash and Bank */

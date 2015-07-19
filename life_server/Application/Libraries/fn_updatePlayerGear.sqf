@@ -12,10 +12,11 @@ private["_unit","_uid","_side","_return","_uItems","_bItems","_vItems","_pItems"
 _unit = param [0,objNull,[objNull]];
 _uid = param [1,"",[""]];
 _side = param [2,sideUnknown,[civilian]];
+_bool = param [3,false,[false]];
 
 _return = [];
 
-uiSleep 1;
+uiSleep 1; /* Why is this needed? Blah */
 
 _return pushBack uniform _unit;
 _return pushBack vest _unit;
@@ -147,4 +148,4 @@ _return pushBack _vMags;
 _return pushBack _pItems;
 _return pushBack _hItems;
 
-[_uid,_side,3,_return] spawn APP_fnc_playerSessionUpdate;
+[_uid,_side,3,_return,_bool] spawn APP_fnc_playerSessionUpdate;

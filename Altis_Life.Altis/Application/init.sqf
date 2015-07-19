@@ -31,6 +31,9 @@ diag_log "::Life Client:: Eventhandlers completed";
 0 cutText ["Waiting for the server to be ready...","BLACK FADED"];
 0 cutFadeOut 1e+30;
 
+/*
+	Todo: Localize
+*/
 diag_log "::Life Client:: Waiting for the server to be ready..";
 waitUntil{!isNil "SYS_server_isReady"};
 waitUntil{(SYS_server_isReady OR !isNil "SYS_server_extDB_notLoaded")};
@@ -59,6 +62,10 @@ diag_log "Executing client.fsm";
 waitUntil {!(isNull (findDisplay 46))};
 
 diag_log "Display 46 Found";
+
+/*
+	Todo: Reimplement keyhandler
+*/
 //(findDisplay 46) displayAddEventHandler ["KeyDown", "_this call life_fnc_keyHandler"];
 player addRating 1e+30;
 diag_log "------------------------------------------------------------------------------------------------------";
@@ -66,7 +73,6 @@ diag_log format["			 End of Altis Life Client Init :: Total Execution Time %1 se
 diag_log "------------------------------------------------------------------------------------------------------";
 
 0 cutText ["","BLACK IN"];
-[0] call APP_fnc_hudSystem;
 
 player SVAR ["steam64ID",getPlayerUID player];
 player SVAR ["realname",profileName,true];
@@ -77,5 +83,6 @@ SYS_fnc_moveIn = compileFinal
 ";
 
 [] execFSM "System\Core\clientFSM.fsm";
+[] spawn APP_fnc_spawnMenu;
 
 if(EQUAL(LIFE_SETTINGS(getNumber,"enable_fatigue"),0)) then {player enableFatigue false;};

@@ -20,6 +20,15 @@ class Application
 	{
 		file = "Application\Third_Party";
 	};
+	class Dialog_Functions
+	{
+		file = "Application\Dialog\Function";
+		class setMapPosition{};
+		class spawnConfirm{};
+		class spawnMenu{};
+		class spawnPointCfg{};
+		class spawnPointSelected{};
+	};
 };
 
 class System

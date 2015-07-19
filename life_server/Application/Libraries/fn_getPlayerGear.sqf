@@ -56,7 +56,7 @@ if(!(EQUAL(_backpack,""))) then {_handle = [_unit,_backpack,true,false,false,fal
 {_unit addItemToBackpack _x;} foreach (_bItems);
 {(backpackContainer _unit) addItemCargoGlobal [_x,1];} foreach (_bMags);
 
-//Primary & Secondary (Handgun) should be added last as magazines do not automatically load into the gun.
+/* Primary & Secondary (Handgun) should be added last as magazines do not automatically load into the gun. */
 if(!(EQUAL(_prim,""))) then {_handle = [_unit,_prim,true,false,false,false] spawn SYS_fnc_itemHandler; waitUntil {scriptDone _handle};};
 if(!(EQUAL(_seco,""))) then {_handle = [_unit,_seco,true,false,false,false] spawn SYS_fnc_itemHandler; waitUntil {scriptDone _handle};};
 
@@ -72,5 +72,8 @@ if(!(EQUAL(_seco,""))) then {_handle = [_unit,_seco,true,false,false,false] spaw
 } foreach (_hItems);
 
 if(side _unit == independent && {EQUAL(uniform _unit,"U_Rangemaster")}) then {
-	[[_unit,0,"textures\medic_uniform.jpg"],"SYS_fnc_setTexture",true,false] call SYS_fnc_MP;
+	[[_unit,0,"Application\Textures\medic_uniform.jpg"],"SYS_fnc_setTexture",true,false] call SYS_fnc_MP;
+};
+if(side _unit == west && {EQUAL(uniform _unit,"U_Rangemaster")}) then {
+	[[_unit,0,"Application\Textures\police_uniform.jpg"],"SYS_fnc_setTexture",true,false] call SYS_fnc_MP;
 };

@@ -19,11 +19,20 @@ if(isNull _owner) exitWith {};
 if(EQUAL(_name,"")) exitWith {};
 _ownerID = owner _owner;
 
+/*
+	Is this needed? The server should of cleaned it out when the player leaves.
+	Todo: Remove this or keep saved sessions
+*/
+
 _existingProfile = GVAR_MNS [format["%1_%2",_uid,_side], ""];
 if(!(EQUAL(_existingProfile,""))) exitWith {
 	[_owner,_uid,_side] spawn APP_fnc_getPlayerGear;
 	[_existingProfile,"APP_fnc_requestReceived",_ownerID,false] call SYS_fnc_MP;
 };
+
+/*
+	Todo: Send only the important information to the client to reduce load
+*/
 
 _queryRequest = [_uid,_side,_name] call APP_fnc_queryRequest;
 SVAR_MNS [format["%1_%2",_uid,_side], _queryRequest];
