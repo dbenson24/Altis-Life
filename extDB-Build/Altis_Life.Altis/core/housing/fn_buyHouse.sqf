@@ -27,8 +27,7 @@ _action = [
 ] call BIS_fnc_guiMessage;
 
 if(_action) then {
-	//_valid = [[_house],"TON_fnc_preCheckHouse",false,false] call life_fnc_MP;
-	_valid = _house GVAR ["house_owner",true];
+	_valid = [[_house],"TON_fnc_preCheckHouse",false,false] call life_fnc_MP;
 	if(EQUAL(_valid,true)) then {
 		if(BANK < (_houseCfg select 0)) exitWith {hint format [localize "STR_House_NotEnough"]};
 		[[_uid,_house],"TON_fnc_addHouse",false,false] call life_fnc_MP;
