@@ -1,3 +1,4 @@
+#include <macro.h>
 /*
 	Author: Karel Moricky
 
@@ -31,7 +32,7 @@ with missionNamespace do {
 
 	//--- Send to server
 	if(isServer && isDedicated) then {
-    	SYS_fnc_MP_packet = [0,_params,_functionName,_target,_isPersistent,_isCall,"__SERVER__","__SERVER__"];
+    	SYS_fnc_MP_packet = [0,_params,_functionName,_target,_isPersistent,_isCall,"__SERVER__","__SERVER__",(FETCH_CONST(serverKey))];
     } else {
     	SYS_fnc_MP_packet = [0,_params,_functionName,_target,_isPersistent,_isCall,profileName,getPlayerUID player];
     };

@@ -11,6 +11,8 @@ class CfgPatches
 	};
 };
 
+class CfgHeadlessClientFunctions{};
+
 class CfgFunctions
 {
 	class BIS_Overwrite
@@ -95,6 +97,7 @@ class CfgFunctions
 			class mresString {};
 			class mresToArray {};
 			class bool{};
+			class randomSeq{};
 		};
 	};
 };

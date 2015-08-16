@@ -7,4 +7,6 @@
 	Handles the events
 */
 "SYS_fnc_MP_packet" addPublicVariableEventHandler {[_this select 0,_this select 1] call SYS_fnc_MPexec;};
-addMissionEventHandler ["HandleDisconnect",{_this call APP_fnc_playerSessionEnd; false;}];
+if(isServer) then {
+	addMissionEventHandler ["HandleDisconnect",{_this spawn APP_fnc_playerSessionEnd; false;}];
+};

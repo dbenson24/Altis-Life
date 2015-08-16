@@ -30,17 +30,43 @@ _backpack = [_itemArray,2,"",[""]] call BIS_fnc_param;
 _goggles = [_itemArray,3,"",[""]] call BIS_fnc_param;
 _headgear = [_itemArray,4,"",[""]] call BIS_fnc_param;
 _items = [_itemArray,5,[],[[]]] call BIS_fnc_param;
-_prim = [_itemArray,6,"",[""]] call BIS_fnc_param;
-_seco = [_itemArray,7,"",[""]] call BIS_fnc_param;
+_prim = [_itemArray,6,[],[[]]] call BIS_fnc_param;
+_seco = [_itemArray,7,[],[[]]] call BIS_fnc_param;
 _uItems = [_itemArray,8,[],[[]]] call BIS_fnc_param;
 _uMags = [_itemArray,9,[],[[]]] call BIS_fnc_param;
 _bItems = [_itemArray,10,[],[[]]] call BIS_fnc_param;
 _bMags = [_itemArray,11,[],[[]]] call BIS_fnc_param;
 _vItems = [_itemArray,12,[],[[]]] call BIS_fnc_param;
 _vMags = [_itemArray,13,[],[[]]] call BIS_fnc_param;
-_pItems = [_itemArray,14,[],[[]]] call BIS_fnc_param;
-_hItems = [_itemArray,15,[],[[]]] call BIS_fnc_param;
-
+/*
+[
+	"U_NikosAgedBody","V_PlateCarrier1_blk","","","",[],
+	[
+		"arifle_MXM_F",
+		["","","",""],
+		"30Rnd_65x39_caseless_mag_Tracer"
+	],
+	[
+		"hgun_ACPC2_snds_F",
+		["muzzle_snds_acp","","",""],
+		"9Rnd_45ACP_Mag"
+	],
+	[],
+	[
+		["30Rnd_65x39_caseless_mag_Tracer",1]
+	],
+	[],
+	[],
+	[
+		["FirstAidKit",3]
+	],
+	[
+		["30Rnd_65x39_caseless_mag_Tracer",4],
+		["9Rnd_45ACP_Mag",3],
+		["Chemlight_green",3]
+	]
+]
+*/
 if(!(EQUAL(_goggles,""))) then {_handle = [_unit,_goggles,true,false,false,false] spawn SYS_fnc_itemHandler; waitUntil {scriptDone _handle};};
 if(!(EQUAL(_headgear,""))) then {_handle = [_unit,_headgear,true,false,false,false] spawn SYS_fnc_itemHandler; waitUntil {scriptDone _handle};};
 if(!(EQUAL(_uniform,""))) then {_handle = [_unit,_uniform,true,false,false,false] spawn SYS_fnc_itemHandler; waitUntil {scriptDone _handle};};
@@ -49,27 +75,36 @@ if(!(EQUAL(_backpack,""))) then {_handle = [_unit,_backpack,true,false,false,fal
 
 {_handle = [_unit,_x,true,false,false,false] spawn SYS_fnc_itemHandler; waitUntil {scriptDone _handle};} foreach _items;
 
-{_unit addItemToUniform _x;} foreach (_uItems);
-{(uniformContainer _unit) addItemCargoGlobal [_x,1];} foreach (_uMags);
-{_unit addItemToVest _x;} foreach (_vItems);
-{(vestContainer _unit) addItemCargoGlobal [_x,1];} foreach (_vMags);
-{_unit addItemToBackpack _x;} foreach (_bItems);
-{(backpackContainer _unit) addItemCargoGlobal [_x,1];} foreach (_bMags);
-
-/* Primary & Secondary (Handgun) should be added last as magazines do not automatically load into the gun. */
-if(!(EQUAL(_prim,""))) then {_handle = [_unit,_prim,true,false,false,false] spawn SYS_fnc_itemHandler; waitUntil {scriptDone _handle};};
-if(!(EQUAL(_seco,""))) then {_handle = [_unit,_seco,true,false,false,false] spawn SYS_fnc_itemHandler; waitUntil {scriptDone _handle};};
-
-{
-    if (!(EQUAL(_x,""))) then {
-        _unit addPrimaryWeaponItem _x;
+/* Correct way to put items in unit, fk you tonic */
+if(!((_prim select 0) isEqualTo "")) then {
+	if(!((_prim select 2) isEqualTo "")) then {
+       	[[_unit,(_prim select 2)],"addMagazine",_unit] call SYS_fnc_MP;
     };
-} foreach (_pItems);
-{
-    if (!(EQUAL(_x,""))) then {
-        _unit addHandgunItem _x;
+    [[_unit,(_prim select 0)],"addWeapon",_unit] call SYS_fnc_MP;
+	removeAllPrimaryWeaponItems _unit;
+	{
+		if(!(_x isEqualTo "")) then {[[_unit,_x],"addPrimaryWeaponItem",_unit] call SYS_fnc_MP;};
+	} forEach (_prim select 1);
+};
+if(!((_seco select 0) isEqualTo "")) then {
+	if(!((_seco select 2) isEqualTo "")) then {
+       	[[_unit,(_seco select 2)],"addMagazine",_unit] call SYS_fnc_MP;
     };
-} foreach (_hItems);
+    [[_unit,(_seco select 0)],"addWeapon",_unit] call SYS_fnc_MP;
+	removeAllHandgunItems _unit;
+	{
+		if(!(_x isEqualTo "")) then {[[_unit,_x],"addHandgunItem",_unit] call SYS_fnc_MP;};
+	} forEach (_seco select 1);
+};
+
+{(uniformContainer _unit) addItemCargoGlobal [_x select 0,_x select 1];} foreach (_uItems);
+{(uniformContainer _unit) addMagazineCargoGlobal [_x select 0,_x select 1];} foreach (_uMags);
+
+{(vestContainer _unit) addItemCargoGlobal [_x select 0,_x select 1];} foreach (_vItems);
+{(vestContainer _unit) addMagazineCargoGlobal [_x select 0,_x select 1];} foreach (_vMags);
+
+{(backpackContainer _unit) addItemCargoGlobal [_x select 0,_x select 1];} foreach (_bItems);
+{(backpackContainer _unit) addMagazineCargoGlobal [_x select 0,_x select 1];} foreach (_bMags);
 
 if(side _unit == independent && {EQUAL(uniform _unit,"U_Rangemaster")}) then {
 	[[_unit,0,"Application\Textures\medic_uniform.jpg"],"SYS_fnc_setTexture",true,false] call SYS_fnc_MP;

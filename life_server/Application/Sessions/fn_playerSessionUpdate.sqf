@@ -34,16 +34,19 @@ switch(_mode)do {
 	};
 	case 3: { /* Gear */
 		_value = param [3,[],[[]]];
+		_bool = param [4,true,[true]];
 		_data set[7,_value];
-		[_uid,_side,3,_value] spawn APP_fnc_updatePartial;
+		if(_bool) then { /* Only save if I say so */
+			[_uid,_side,3,_value] spawn APP_fnc_updatePartial;
+		};
 	};
 	case 4: { /* Arrested */
 		if(EQUAL(_side,civilian)) then {
 			_value = param [3,0,[0]];
-			_bool = param [4,false,[false]];
+			_bool = param [4,true,[true]];
 			_value = [_value] call SYS_fnc_numberSafe;
 			_data set[6,_value];
-			if(_bool) { /* Only save if I say so */
+			if(_bool) then { /* Only save if I say so */
 				[_uid,_side,4,_value] spawn APP_fnc_updatePartial;
 			};
 		};
@@ -62,3 +65,6 @@ switch(_mode)do {
 };
 
 SVAR_MNS [format["%1_%2",_uid,_side],_data];
+if((_this select 4) isEqualTo false && _mode isEqualTo 3) then {
+	SVAR_MNS [format["%1_%2_gearUpdate",_uid,_side], true];
+};

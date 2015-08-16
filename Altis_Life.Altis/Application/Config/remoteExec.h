@@ -9,7 +9,7 @@
 		2: remoteExec turned on ignoring whitelisting
 	allowedTargets:
 		0: Everyone (including server)
-		1: Only Clients
+		1: Only server can execute
 		2: Only Server
 	jip:
 		1 = True
@@ -17,14 +17,18 @@
 
 */
 
-/* Functions/Commands the client can execute */
-mode = 1;
 class Functions
 {
+	mode = 1;
 	jip = 0;
 	class APP_fnc_playerSessionStart {allowedTargets=2;};
 };
 class Commands
 {
-	/* Is there a point into allow commands to be executed over the client? */
+	mode = 1;
+	jip = 0;
+	class addWeapon{allowedTargets=0;};
+	class addMagazine{allowedTargets=0;};
+	class addPrimaryWeaponItem{allowedTargets=0;};
+	class addHandgunItem{allowedTargets=0;};
 };

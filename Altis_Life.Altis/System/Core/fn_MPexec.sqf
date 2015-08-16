@@ -22,10 +22,11 @@ _mode = 	[_varValue,0,[0]] call bis_fnc_param;
 _params = 	[_varValue,1,[]] call bis_fnc_param;
 _functionName =	[_varValue,2,"",[""]] call bis_fnc_param;
 _target =	[_varValue,3,true,[objNull,true,0,[],sideUnknown,grpNull,""]] call bis_fnc_param;
-_isPersistent =	[_varValue,4,false,[false]] call bis_fnc_param;
+_isPersistent =	false; //fuck that white noise
 _isCall =	[_varValue,5,false,[false]] call bis_fnc_param;
 _callerName = [_varValue,6,"",[""]] call bis_fnc_param;
 _callerUID = [_varValue,7,"",[""]] call bis_fnc_param;
+_serverKey = [_varValue,8,"",[""]] call bis_fnc_param;
 
 //if(!(["APP_fnc_",_functionName] call BIS_fnc_inString) && {(toLower(_functionName) in ["app_fnc_insertrequest","app_fnc_queryrequest","app_fnc_playersessionend","app_fnc_playercreatesession","app_fnc_playergetsession","app_fnc_playergetsession","app_fnc_invhandler"])} && {!(toLower(_functionName) in ["bis_fnc_execvm","bis_fnc_effectkilledairdestruction","bis_fnc_effectkilledairdestructionstage2","life_fnc_stripDownPlayer"])}) exitWith {false};
 
@@ -36,7 +37,12 @@ if(_functionName == "bis_fnc_execvm") then {
 };
 
 if(_callerName == "" OR _callerUID == "") exitWith {}; //NO.
-if(toLower(_functionName) == "bis_fnc_endmission") exitWith {false};
+if((["APP_fnc_",_functionName] call BIS_fnc_inString) || (["SYS_fnc_",_functionName] call BIS_fnc_inString) || (["BIS_fnc_",_functionName] call BIS_fnc_inString)) then {
+	if((getNumber(missionConfigFile >> "CfgSysRemoteExecFunctions" >> _functionName >> "blacklist")) == 1) exitWith {exitScope(true);};
+	if((getNumber(missionConfigFile >> "CfgSysRemoteExecFunctions" >> _functionName >> "serverOnly")) == 1 && _serverKey != (FETCH_CONST(serverKey))) exitWith {exitScope(true);};
+} else {
+	if((getNumber(missionConfigFile >> "CfgSysRemoteExecCommands" >> _functionName >> "serverOnly")) == 1 && _serverKey != (FETCH_CONST(serverKey))) exitWith {exitScope(true);}; //Command Check
+};
 if(_exitScope) exitWith {false};
 
 if (isMultiplayer && _mode == 0) then {
@@ -87,9 +93,9 @@ if (isMultiplayer && _mode == 0) then {
 				if (typeName _target != typeName 0) then {
 					private ["_logic","_queue"];
 					_logic = GVAR_MNS ["bis_functions_mainscope",objNull];
-					_queue = _logic GVAR ["SYS_fnc_MP_queue",[]];
+					_queue = _logic GVAR ["BIS_fnc_MP_queue",[]];
 					_queue set [ count _queue, +SYS_fnc_MP_packet ];
-					_logic SVAR ["SYS_fnc_MP_queue",_queue,true];
+					_logic SVAR ["BIS_fnc_MP_queue",_queue,true];
 				} else {
 					["Persistent execution is not allowed when target is %1. Use %2 or %3 instead.",typeName 0,typeName objNull,typeName false] call bis_fnc_error;
 				};
@@ -119,7 +125,9 @@ if (isMultiplayer && _mode == 0) then {
     		_supportInfo = supportInfo format ["*:%1*",_functionName];
     		if (count _supportInfo > 0) then {
     			//--- Scripting command
-    			_cfgRemoteExecCommands = [["CfgRemoteExecCommands"],configFile] call bis_fnc_loadClass;
+    			//_cfgRemoteExecCommands = [["CfgRemoteExecCommands"],configFile] call bis_fnc_loadClass;
+    			//We'll be using our own for security reasons.
+    			_cfgRemoteExecCommands = [["CfgSysRemoteExecCommands"],missionConfigFile] call bis_fnc_loadClass;
     			if (isClass (_cfgRemoteExecCommands >> _functionName)) then {
     				_paramCount = if (typeName _params == typeName []) then {count _params} else {1};
     				switch (_paramCount) do {

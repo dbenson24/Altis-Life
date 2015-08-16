@@ -1,6 +1,6 @@
 class Life_Settings {
 	/* Persistent Settings */
-    save_civ_weapons = false; //Allow civilians to save weapons on them?
+    save_civ_weapons = true; //Allow civilians to save weapons on them?
     save_virtualItems = true; //Save Virtual items (all sides)? Currently not working for v5 yet
 
     /* Default Cash */

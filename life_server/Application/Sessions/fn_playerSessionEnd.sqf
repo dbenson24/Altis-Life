@@ -5,23 +5,18 @@
 	Description: Saves all data to the MySQL from the Memory.
 */
 private["_unit","_id","_uid","_name"];
-_unit = SEL(_this,0);
-_id = SEL(_this,1);
-_uid = SEL(_this,2);
-_name = SEL(_this,3);
-
+params["_unit","_id","_uid","_name"];
 if(isNull _unit) exitWith {}; /* These people leaving too early. */
 _side = (side _unit);
 
 _getCachedData = GVAR_MNS [format["%1_%2",_uid,_side], ""];
 if(EQUAL(_getCachedData,"")) exitWith {}; /* Player Data wasn't cached, probably decided to leave before session started. */
 
-diag_log format["Results: %1",_getCachedData];
-
 _cash = SEL(_getCachedData,2);
 _bank = SEL(_getCachedData,3);
 _licenses = SEL(_getCachedData,5);
-[_unit,_uid,_side,false] call APP_fnc_updatePlayerGear;
+[_unit,_uid,_side,false] spawn APP_fnc_updatePlayerGear;
+waitUntil{!isNil format["%1_%2_gearUpdate",_uid,_side]};
 _gear = SEL(_getCachedData,7);
 
 if(EQUAL(_side,civilian)) then [{
@@ -31,4 +26,9 @@ if(EQUAL(_side,civilian)) then [{
 	[_uid, _name, _side, _cash, _bank, _licenses, _gear] spawn APP_fnc_updateRequest; /* Drop money, (ALT+F4, End Task, Restart PC), data saves anyways :troll:. */
 }];
 
-SVAR_MNS [format["%1_%2",_uid,_side], nil]; /* No point to keep this saved, it'll free some memory and CPS. */
+/* Cleaning up the trash */
+SVAR_MNS [format["%1_%2",_uid,_side], nil];
+SVAR_MNS [format["%1_%2_gearUpdate",_uid,_side], nil];
+_containers = nearestObjects[_unit,["WeaponHolderSimulated"],5];
+{deleteVehicle _x;} foreach _containers;
+deleteVehicle _unit;

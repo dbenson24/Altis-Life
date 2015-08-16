@@ -1,9 +1,9 @@
 author = "Tonic and Itsyuka";
 onLoadName = "Altis Life RPG Revised";
-onLoadMission = "A RPG game mode developed by Tonic";
+onLoadMission = "A RPG game mode developed by Tonic, fully revised by Itsyuka";
 joinUnassigned = 1;
 respawn = BASE;
-respawndelay = 5;
+respawnDelay = 5;
 disabledAI = true;
 disableChannels[]={0,1,2};
 enableDebugConsole = 1;
@@ -31,17 +31,24 @@ class RscTitles {
 	#include "Application\Dialog\ui.hpp"
     #include "Application\Dialog\progress.hpp"
     #include "Application\Dialog\hud_nameTags.h"
-}
+};
 
 class CfgFunctions
 {
 	#include "Functions.h"
 };
 
-class CfgRemoteExec
+class CfgSysRemoteExecCommands
 {
-	#include "Application\Config\remoteExec.h"
+	#include "Application\Config\remoteExecCommands.h"
 };
+
+class CfgSysRemoteExecFunctions
+{
+	#include "Application\Config\remoteExecFunctions.h"
+};
+
+class CfgRemoteExec{};
 
 class CfgDebriefing
 {
@@ -58,8 +65,8 @@ class CfgDebriefing
 	class Blacklisted
 	{
 		title = "Mission Failed";
-		subtitle = "You are blacklisted from cops";
-		description = "You are not allowed to be a cop due to previous actions and the admins have removed you from being a cop.";
+		subtitle = "You are blacklisted";
+		description = "You are not allowed to join this slot due to previous actions and the admins have removed you.";
 		pictureBackground = "";
 		picture = "";
 		pictureColor[] = {0,0.3,0.6,1};
