@@ -25,7 +25,6 @@ corpseRemovalMaxTime = 9999;
 
 #include "Application\Dialog\MasterHandler.h"
 #include "Application\Config\Master.hpp"
-#include "Application\Config\VirtualItems.hpp"
 
 class RscTitles {
 	#include "Application\Dialog\ui.hpp"

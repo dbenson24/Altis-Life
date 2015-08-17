@@ -1,3 +1,6 @@
+#include "Vehicles.hpp"
+#include "VirtualItems.hpp"
+
 class Life_Settings {
 	/* Persistent Settings */
     save_civ_weapons = true; //Allow civilians to save weapons on them?

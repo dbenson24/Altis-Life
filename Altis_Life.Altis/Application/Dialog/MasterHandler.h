@@ -4,3 +4,4 @@
 #include "common.hpp"
 #include "ui.hpp"
 #include "spawnSelection.hpp"
+#include "vehicleShop.h"

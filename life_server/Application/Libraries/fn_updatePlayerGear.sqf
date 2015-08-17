@@ -21,7 +21,7 @@ _return pushBack vest _unit;
 _return pushBack backpack _unit;
 _return pushBack goggles _unit;
 _return pushBack headgear _unit;
-_return pushBack assignedITems _unit;
+_return pushBack assignedItems _unit;
 
 _pWeapon = [];
 _hWeapon = [];
@@ -31,12 +31,6 @@ _bItems = [];
 _bMags  = [];
 _vItems = [];
 _vMags  = [];
-_pItems = [];
-_hItems = [];
-_yItems = [];
-_uni = [];
-_ves = [];
-_bag = [];
 
 if(!(EQUAL(uniform _unit,""))) then {
     _uMagList = getMagazineCargo uniformContainer _unit;

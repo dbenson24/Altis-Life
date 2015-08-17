@@ -1,5 +1,3 @@
-#define true 1
-#define false 0
 #define C(CLASSNAME,SERVER) class CLASSNAME{serverOnly = SERVER;};
 /*
 	C(Command,Server only?)

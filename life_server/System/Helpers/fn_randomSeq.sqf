@@ -12,8 +12,7 @@ _filter = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 _filterArray = toArray _filter;
 _return = [];
 for "_i" from 1 to _length do {
-	_return pushBack (_filterArray select (random((count _filterArray)-1)));
+	_return pushBack (_filterArray select floor random count _filterArray);
 };
-_return = toString _return;
-_return = str _return;
+_return = str(toString _return);
 _return;
