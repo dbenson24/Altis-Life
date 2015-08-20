@@ -1,6 +1,11 @@
-Localize everything again
-remember to remember
-spawn selection
-security fnc_mp
-blame tonic
-add in medical system
+Localize everything again (do this at the end)
+remember to remember (getting there)
+spawn selection (done)
+security fnc_mp (Majority is done)
+blame tonic (Major bug that will never be fixed)
+add in medical system (Eventually)
+Vehicle shop
+Item shop
+y-item shop
+action menu
+bug fixes

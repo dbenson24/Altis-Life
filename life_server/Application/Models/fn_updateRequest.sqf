@@ -49,5 +49,4 @@ diag_log "------------- Player Update Query Request -------------";
 diag_log format["QUERY: %1",_query];
 diag_log "------------------------------------------------";
 
-waitUntil{sleep (random 0.3); !SYS_Async_Active};
 [_query,1] call SYS_fnc_asyncCall;

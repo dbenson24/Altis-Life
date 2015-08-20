@@ -73,7 +73,7 @@ class Life_Vehicle_Shop_v2
 		{
 			idc = -1;
 			text = "$STR_Global_RentVeh";
-			onButtonClick = "[false] spawn life_fnc_vehicleShopBuy;";
+			onButtonClick = "[false] spawn APP_fnc_vehicleShopBuy;";
 			x = 0.1 + (6.25 / 40) + (1 / 250 / (safezoneW / safezoneH));
 			y = 0.9 - (1 / 25);
 			w = (6.25 / 40);
@@ -84,7 +84,7 @@ class Life_Vehicle_Shop_v2
 		{
 			idc = 2309;
 			text = "$STR_Global_Buy";
-			onButtonClick = "[true] spawn life_fnc_vehicleShopBuy;";
+			onButtonClick = "[true] spawn APP_fnc_vehicleShopBuy;";
 			x = 0.26 + (6.25 / 40) + (1 / 250 / (safezoneW / safezoneH));
 			y = 0.9 - (1 / 25);
 			w = (6.25 / 40);
@@ -100,7 +100,7 @@ class Life_Vehicle_Shop_v2
 			text = "";
 			sizeEx = 0.04;
 			colorBackground[] = {0.1,0.1,0.1,0.9};
-			onLBSelChanged = "_this call life_fnc_vehicleShopLBChange";
+			onLBSelChanged = "_this call APP_fnc_vehicleShopLBChange";
 			
 			//Position & height
 			x = 0.11; y = 0.302;

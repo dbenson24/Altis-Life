@@ -36,13 +36,26 @@ if(_functionName == "bis_fnc_execvm") then {
 	if(_param2 != "initPlayerServer.sqf") exitWith {exitScope(true);};
 };
 
-if(_callerName == "" OR _callerUID == "") exitWith {}; //NO.
+if(_callerName == "" OR _callerUID == "") exitWith {};
+
 if((["APP_fnc_",_functionName] call BIS_fnc_inString) || (["SYS_fnc_",_functionName] call BIS_fnc_inString) || (["BIS_fnc_",_functionName] call BIS_fnc_inString)) then {
-	if((getNumber(missionConfigFile >> "CfgSysRemoteExecFunctions" >> _functionName >> "blacklist")) == 1) exitWith {exitScope(true);};
-	if((getNumber(missionConfigFile >> "CfgSysRemoteExecFunctions" >> _functionName >> "serverOnly")) == 1 && _serverKey != (FETCH_CONST(serverKey))) exitWith {exitScope(true);};
+	_cfgRemoteExecFunctions = [["CfgSysRemoteExecFunctions"],missionConfigFile] call bis_fnc_loadClass;
+	if (isClass (_cfgRemoteExecFunctions >> _functionName)) then {
+		if((getNumber(missionConfigFile >> "CfgSysRemoteExecFunctions" >> _functionName >> "serverOnly")) == 1 && _serverKey != (FETCH_CONST(serverKey))) exitWith {
+			["Function '%1' is only allowed to be executed over MP by the server",_functionName] call bis_fnc_error;
+			exitScope(true);
+		};
+	} else {
+		["Function '%1' is not allowed to be executed over MP",_functionName] call bis_fnc_error;
+		exitScope(true);
+	};
 } else {
-	if((getNumber(missionConfigFile >> "CfgSysRemoteExecCommands" >> _functionName >> "serverOnly")) == 1 && _serverKey != (FETCH_CONST(serverKey))) exitWith {exitScope(true);}; //Command Check
+	if((getNumber(missionConfigFile >> "CfgSysRemoteExecCommands" >> _functionName >> "serverOnly")) == 1 && _serverKey != (FETCH_CONST(serverKey))) exitWith {
+		["Scripting Command '%1' is only allowed to be executed over MP by the server",_functionName] call bis_fnc_error;
+		exitScope(true);
+	};
 };
+
 if(_exitScope) exitWith {false};
 
 if (isMultiplayer && _mode == 0) then {

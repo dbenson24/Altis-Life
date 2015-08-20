@@ -18,14 +18,14 @@ switch(_mode)do {
 	case 0: { /* Cash */
 		_value = param [3,0,[0]];
 		_value = [_value] call SYS_fnc_numberSafe;
-		_data set[2,_value];
-		[_uid,_side,0,_value] spawn APP_fnc_updatePartial;
+		_data set[2,parseNumber _value];
+		[_uid,_side,0,parseNumber _value] spawn APP_fnc_updatePartial;
 	};
 	case 1: { /* Bank */
 		_value = param [3,0,[0]];
 		_value = [_value] call SYS_fnc_numberSafe;
-		_data set[3,_value];
-		[_uid,_side,1,_value] spawn APP_fnc_updatePartial;
+		_data set[3,parseNumber _value];
+		[_uid,_side,1,parseNumber _value] spawn APP_fnc_updatePartial;
 	};
 	case 2: { /* Licenses */
 		_value = param [3,[],[[]]];

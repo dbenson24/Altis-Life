@@ -28,16 +28,6 @@ diag_log "::Life Client:: Setting up Eventhandlers";
 [] call SYS_fnc_setupEVH;
 diag_log "::Life Client:: Eventhandlers completed";
 
-0 cutText ["Waiting for the server to be ready...","BLACK FADED"];
-0 cutFadeOut 1e+30;
-
-/*
-	Todo: Localize
-*/
-diag_log "::Life Client:: Waiting for the server to be ready..";
-waitUntil{!isNil "SYS_server_isReady"};
-waitUntil{(SYS_server_isReady OR !isNil "SYS_server_extDB_notLoaded")};
-
 if(!isNil "SYS_server_extDB_notLoaded" && {SYS_server_extDB_notLoaded != ""}) exitWith {
 	diag_log SYS_server_extDB_notLoaded;
 	1e+30 cutText [SYS_server_extDB_notLoaded,"BLACK FADED"];

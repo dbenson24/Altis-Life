@@ -9,7 +9,6 @@
 		1: INTEGER (1 = ASYNC + not return for update/insert, 2 = ASYNC + return for query's).
 		3: BOOL (True to return a single array, false to return multiple entries mainly for garage).
 */
-waitUntil {!SYS_Async_Active};
 private["_queryStmt","_queryResult","_key","_mode","_return","_loop"];
 
 _tickTime = diag_tickTime;
@@ -19,18 +18,14 @@ _mode = param [1,1,[0]];
 
 _key = EXTDB_TAG callExtension format["%1:%2:%3",_mode,(call SYS_sql_id),_queryStmt];
 
-if(_mode isEqualTo 1) exitWith {SYS_Async_Active = false; true};
+if(_mode isEqualTo 1) exitWith {true};
 
 _key = call compile format["%1",_key];
 _key = _key select 1;
 
-SYS_Async_Active = true;
 // Get Result via 4:x (single message return)  v19 and later
 _queryResult = "";
 _loop = true;
-
-waitUntil{uisleep (random .03); !SYS_Async_ExtraLock};
-SYS_Async_ExtraLock = true;
 
 while{_loop} do
 {
@@ -56,14 +51,14 @@ while{_loop} do
 	};
 };
 
-SYS_Async_ExtraLock = false;
-SYS_Async_Active = false;
-
 _queryResult = call compile _queryResult;
 
 // Not needed, its SQF Code incase extDB2 ever returns error message i.e Database Connection Died
 if ((_queryResult select 0) isEqualTo 0) exitWith {diag_log format ["extDB2: Protocol Error: %1", _queryResult]; []};
 _return = ((_queryResult select 1) select 0);
 if(!(_return isEqualTo [])) then {
+	_return;
+} else {
+	_return = "";
 	_return;
 };

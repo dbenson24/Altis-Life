@@ -1,0 +1,195 @@
+/*%FSM<COMPILE "D:\SteamLibrary\steamapps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, vehicleQueue">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Init",0,250,-15.953766,-241.167648,74.046234,-191.167633,0.000000,"Init"};
+item1[] = {"true",8,218,-16.007965,-151.234924,73.992035,-101.234863,0.000000,"true"};
+item2[] = {"Vehicle_handling",2,250,-15.858429,105.772903,74.141586,155.772903,0.000000,"Vehicle handling" \n "Node"};
+item3[] = {"No_vehicle_block",4,218,-222.588654,105.523041,-132.588654,155.523041,0.000000,"No vehicle" \n "blocking"};
+item4[] = {"Vehicle_is_block",4,218,185.614075,104.647087,275.614075,154.647095,0.000000,"Vehicle is" \n "blocking"};
+item5[] = {"Set_info_to_end",2,250,183.805908,-49.347038,273.805939,0.652954,0.000000,"Set info" \n "to end of queue"};
+item6[] = {"Spawn_Vehicle",2,4346,-222.545532,-46.093903,-132.545532,3.906082,0.000000,"Spawn Vehicle"};
+item7[] = {"true",8,218,-133.790039,-120.880722,-43.790039,-70.880722,0.000000,"true"};
+item8[] = {"true",8,218,93.962646,-123.508652,183.962646,-73.508652,0.000000,"true"};
+item9[] = {"Queue_Node",2,250,-12.906006,-74.454285,77.094009,-24.454285,0.000000,"Queue Node"};
+item10[] = {"No_vehicle_Keep",4,218,76.443085,7.011063,166.443085,57.011063,0.000000,"No vehicle" \n "Keep waiting"};
+item11[] = {"Vehicle_Exists",4,218,-97.875244,5.259140,-7.875244,55.259140,0.000000,"Vehicle Exists"};
+link0[] = {0,1};
+link1[] = {1,9};
+link2[] = {2,3};
+link3[] = {2,4};
+link4[] = {3,6};
+link5[] = {4,5};
+link6[] = {5,8};
+link7[] = {6,7};
+link8[] = {7,9};
+link9[] = {8,9};
+link10[] = {9,10};
+link11[] = {9,11};
+link12[] = {10,9};
+link13[] = {11,2};
+globals[] = {0.000000,0,0,0,0,640,480,1,26,6316128,1,-476.294983,554.723511,456.381195,-317.977692,864,587,1};
+window[] = {0,-1,-1,-32000,-32000,785,26,1466,26,1,882};
+*//*%FSM</HEAD>*/
+class FSM
+{
+        fsmName = "vehicleQueue";
+        class States
+        {
+                /*%FSM<STATE "Init">*/
+                class Init
+                {
+                        name = "Init";
+                        itemno = 0;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "true">*/
+                                class true
+                                {
+                                        itemno = 1;
+                                        priority = 0.000000;
+                                        to="Queue_Node";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Vehicle_handling">*/
+                class Vehicle_handling
+                {
+                        name = "Vehicle_handling";
+                        itemno = 2;
+                        init = /*%FSM<STATEINIT""">*/"_vehQueueInfo = (SYS_vehicleQueue select 0);" \n
+                         "" \n
+                         "_spawnPoint = """";" \n
+                         "{if(count(nearestObjects[(getMarkerPos _x),[""Car"",""Ship"",""Air""],5]) == 0) exitWith {_spawnPoint = _x};} foreach (_vehQueueInfo select 1);"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Vehicle_is_block">*/
+                                class Vehicle_is_block
+                                {
+                                        itemno = 4;
+                                        priority = 0.000000;
+                                        to="Set_info_to_end";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"(_spawnPoint isEqualTo """")"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "No_vehicle_block">*/
+                                class No_vehicle_block
+                                {
+                                        itemno = 3;
+                                        priority = 0.000000;
+                                        to="Spawn_Vehicle";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!(_spawnPoint isEqualTo """")"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Set_info_to_end">*/
+                class Set_info_to_end
+                {
+                        name = "Set_info_to_end";
+                        itemno = 5;
+                        init = /*%FSM<STATEINIT""">*/"SYS_vehicleQueue deleteAT 0;" \n
+                         "SYS_vehicleQueue pushBack _vehQueueInfo;" \n
+                         "_vehQueueInfo = nil;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "true">*/
+                                class true
+                                {
+                                        itemno = 8;
+                                        priority = 0.000000;
+                                        to="Queue_Node";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Spawn_Vehicle">*/
+                class Spawn_Vehicle
+                {
+                        name = "Spawn_Vehicle";
+                        itemno = 6;
+                        init = /*%FSM<STATEINIT""">*/"_vehObj = createVehicle [(_vehQueueInfo select 0),(getMarkerPos _spawnPoint),[],0,""NONE""];" \n
+                         "_vehObj allowDamage false;" \n
+                         "_vehObj setDir (markerDir _spawnPoint);" \n
+                         "_vehObj allowDamage true;" \n
+                         "" \n
+                         "if((_vehQueueInfo select 3) isEqualTo true) then {[[1,""You bought the vehicle permanently!""],""SYS_fnc_broadcast"",(_vehQueueInfo select 4)] call SYS_fnc_MP;} else {[[1,""This is a temporary vehicle!""],""SYS_fnc_broadcast"",(_vehQueueInfo select 4)] call SYS_fnc_MP;};" \n
+                         "" \n
+                         "_vehObj = nil;" \n
+                         "_vehQueueInfo = nil;" \n
+                         "SYS_vehicleQueue deleteAT 0;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "true">*/
+                                class true
+                                {
+                                        itemno = 7;
+                                        priority = 0.000000;
+                                        to="Queue_Node";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Queue_Node">*/
+                class Queue_Node
+                {
+                        name = "Queue_Node";
+                        itemno = 9;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Vehicle_Exists">*/
+                                class Vehicle_Exists
+                                {
+                                        itemno = 11;
+                                        priority = 0.000000;
+                                        to="Vehicle_handling";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!(SYS_vehicleQueue isEqualTo [])"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "No_vehicle_Keep">*/
+                                class No_vehicle_Keep
+                                {
+                                        itemno = 10;
+                                        priority = 0.000000;
+                                        to="Queue_Node";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"(SYS_vehicleQueue isEqualTo [])"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+        };
+        initState="Init";
+        finalStates[] =
+        {
+        };
+};
+/*%FSM</COMPILE>*/

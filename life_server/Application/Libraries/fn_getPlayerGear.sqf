@@ -38,35 +38,7 @@ _bItems = [_itemArray,10,[],[[]]] call BIS_fnc_param;
 _bMags = [_itemArray,11,[],[[]]] call BIS_fnc_param;
 _vItems = [_itemArray,12,[],[[]]] call BIS_fnc_param;
 _vMags = [_itemArray,13,[],[[]]] call BIS_fnc_param;
-/*
-[
-	"U_NikosAgedBody","V_PlateCarrier1_blk","","","",[],
-	[
-		"arifle_MXM_F",
-		["","","",""],
-		"30Rnd_65x39_caseless_mag_Tracer"
-	],
-	[
-		"hgun_ACPC2_snds_F",
-		["muzzle_snds_acp","","",""],
-		"9Rnd_45ACP_Mag"
-	],
-	[],
-	[
-		["30Rnd_65x39_caseless_mag_Tracer",1]
-	],
-	[],
-	[],
-	[
-		["FirstAidKit",3]
-	],
-	[
-		["30Rnd_65x39_caseless_mag_Tracer",4],
-		["9Rnd_45ACP_Mag",3],
-		["Chemlight_green",3]
-	]
-]
-*/
+
 if(!(EQUAL(_goggles,""))) then {_handle = [_unit,_goggles,true,false,false,false] spawn SYS_fnc_itemHandler; waitUntil {scriptDone _handle};};
 if(!(EQUAL(_headgear,""))) then {_handle = [_unit,_headgear,true,false,false,false] spawn SYS_fnc_itemHandler; waitUntil {scriptDone _handle};};
 if(!(EQUAL(_uniform,""))) then {_handle = [_unit,_uniform,true,false,false,false] spawn SYS_fnc_itemHandler; waitUntil {scriptDone _handle};};
@@ -96,7 +68,7 @@ if(!((_seco select 0) isEqualTo "")) then {
 		if(!(_x isEqualTo "")) then {[[_unit,_x],"addHandgunItem",_unit] call SYS_fnc_MP;};
 	} forEach (_seco select 1);
 };
-
+uiSleep 0.5; /* Arma needs this because it doesn't sync properly */
 {(uniformContainer _unit) addItemCargoGlobal [_x select 0,_x select 1];} foreach (_uItems);
 {(uniformContainer _unit) addMagazineCargoGlobal [_x select 0,_x select 1];} foreach (_uMags);
 

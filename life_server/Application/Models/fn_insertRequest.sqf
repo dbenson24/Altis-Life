@@ -20,7 +20,6 @@ if((_uid == "") OR (_name == "")) exitWith {diag_log "Bad UID or name";}; /* Let
 
 _query = format["playerInfo:%1",_uid];
 
-waitUntil{sleep (random 0.3); !SYS_Async_Active};
 _tickTime = diag_tickTime;
 _queryResult = [_query,2] call SYS_fnc_asyncCall;
 
@@ -44,5 +43,4 @@ diag_log "------------- Player Insert Query Request -------------";
 diag_log format["QUERY: %1",_query];
 diag_log "------------------------------------------------";
 
-waitUntil {!SYS_Async_Active};
 [_query,1] call SYS_fnc_asyncCall;

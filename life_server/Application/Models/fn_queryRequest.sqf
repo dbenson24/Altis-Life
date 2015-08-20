@@ -25,7 +25,6 @@ _query = switch(_side) do {
 	case independent: {format["playerIndependentFetch:%1",_uid];};
 };
 
-waitUntil{sleep (random 0.3); !SYS_Async_Active};
 _tickTime = diag_tickTime;
 _queryResult = [_query,2] call SYS_fnc_asyncCall;
 
@@ -41,9 +40,9 @@ if(count _queryResult == 0) exitWith {};
 //Blah conversion thing from a2net->extdb
 private["_tmp"];
 _tmp = _queryResult select 2;
-_queryResult set[2,[_tmp] call SYS_fnc_numberSafe];
+_queryResult set[2,parseNumber ([_tmp] call SYS_fnc_numberSafe)];
 _tmp = _queryResult select 3;
-_queryResult set[3,[_tmp] call SYS_fnc_numberSafe];
+_queryResult set[3,parseNumber ([_tmp] call SYS_fnc_numberSafe)];
 
 //Parse licenses (Always index 5)
 _new = [(_queryResult select 5)] call SYS_fnc_mresToArray;

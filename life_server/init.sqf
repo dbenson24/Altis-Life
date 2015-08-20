@@ -15,9 +15,8 @@ if(isServer) then {
     serverKey = _randomSeq;
     CONSTVAR(serverKey);
     SVAR_UINS ["serverKey",serverKey];
+    SYS_vehicleQueue = [];
 };
-SYS_Async_Active = false;
-SYS_Async_ExtraLock = false;
 
 if(isNil {GVAR_UINS "SYS_sql_id"}) then {
 	_randomSeq = [12] call SYS_fnc_randomSeq;
@@ -84,6 +83,7 @@ if(isServer) then {
     //[] call compile preprocessFileLineNumbers "\life_server\functions.sqf";
 
     [8,true,12] execFSM SYSPATH("Core\FSM\timeModule.fsm");
+    [] execFSM SYSPATH("Core\FSM\vehicleQueue.fsm");
     //[] execFSM SYSPATH("Core\FSM\cleanup.fsm");
 
     /* Setup the federal reserve building(s) */

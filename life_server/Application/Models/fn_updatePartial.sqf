@@ -61,7 +61,4 @@ switch(_mode)do {
 	case 6: {};
 	case 7: {};
 };
-
-waitUntil{sleep (random 0.3); !SYS_Async_Active};
-_tickTime = diag_tickTime;
-_queryResult = [_query,2] call SYS_fnc_asyncCall;
+[_query,2] call SYS_fnc_asyncCall;

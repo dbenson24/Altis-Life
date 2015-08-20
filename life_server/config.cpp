@@ -42,6 +42,7 @@ class CfgFunctions
 		{
 			file = "\life_server\Application\Core";
 			class invHandler{};
+			class vehicleStoreHandler{};
 			//class storeHandler{};
 		};
 		class Libraries

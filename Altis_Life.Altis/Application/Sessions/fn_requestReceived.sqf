@@ -29,8 +29,8 @@ if(!isServer && (!isNil "life_adminlevel" OR !isNil "life_coplevel")) exitWith {
 };
 
 //Parse basic player information.
-CASH = parseNumber (SEL(_this,2));
-BANK = parseNumber (SEL(_this,3));
+CASH = SEL(_this,2);
+BANK = SEL(_this,3);
 CONST(life_adminlevel,parseNumber (SEL(_this,4)));
 
 //Loop through licenses

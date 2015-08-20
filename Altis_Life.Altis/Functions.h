@@ -9,6 +9,9 @@ class Application
 	{
 		file = "Application\Libraries";
 		class hudSystem{};
+		class vehicleShop{};
+		class vehicleShopLBChange{};
+		class vehicleShopBuy{};
 	};
 	class Sessions
 	{
@@ -50,6 +53,8 @@ class System
 	class Helpers
 	{
 		file = "System\Helpers";
+		class fetchVehInfo{};
+		class numberText{};
 	};
 	class Libraries
 	{

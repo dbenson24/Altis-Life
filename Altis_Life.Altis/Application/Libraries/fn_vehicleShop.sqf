@@ -47,7 +47,7 @@ ctrlShow [2304,false];
 	if(!isNil "_levelData" && {_var = GVAR_MNS (SEL(_levelData,0)); !(FETCH_CONST(_var) >= (SEL(_levelData,1)))}) then {_passOver = true;};
 
 	if(!_passOver) then {
-		_vehicleInfo = [_className] call life_fnc_fetchVehInfo;
+		_vehicleInfo = [_className] call SYS_fnc_fetchVehInfo;
 		_control lbAdd (_vehicleInfo select 3);
 		_control lbSetPicture [(lbSize _control)-1,(_vehicleInfo select 2)];
 		_control lbSetData [(lbSize _control)-1,_className];
