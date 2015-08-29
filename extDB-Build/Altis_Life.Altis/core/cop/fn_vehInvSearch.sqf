@@ -48,7 +48,7 @@ if(_value > 0) then {
 /*
 //just saving default code
 #include <macro.h>
-//File: fn_vehInvSearch.sqf Author: Bryan "Tonic" Boardwine Description:Searches the vehicle for illegal items.*/
+//File: fn_vehInvSearch.sqf Author: Bryan "Tonic" Boardwine Description:Searches the vehicle for illegal items.
 private["_vehicle","_vehicleInfo","_value","_list"];
 _vehicle = cursorTarget;
 _list = ["Air","Ship","LandVehicle"];
