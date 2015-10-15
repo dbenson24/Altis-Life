@@ -32,7 +32,7 @@
 	life_server_extDB_notLoaded = [true,##MESSAGE]; \
 	PVAR_ALL("life_server_extDB_notLoaded"); \
 	["diag_log",[MESSAGE]] call TON_fnc_logIt;
-#define EXTDB "extDB" callExtension
+#define EXTDB "extDB2" callExtension
 #define RCON_SELECTION getText(configFile >> "CfgServerSettings" >> "extDB" >> "RCON_Selection")
 #define DATABASE_SELECTION getText(configFile >> "CfgServerSettings" >> "extDB" >> "Database")
 

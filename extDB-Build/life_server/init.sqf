@@ -26,14 +26,17 @@ if(isNil {GVAR_UINS "life_sql_id"}) then {
 	_result = EXTDB "9:VERSION";
 	["diag_log",[format["extDB: Version: %1",_result]]] call TON_fnc_logIt;
 	if(EQUAL(_result,"")) exitWith {EXTDB_FAILED("The server-side extension extDB was not loaded into the engine, report this to the server admin.")};
-	if ((parseNumber _result) < 35) exitWith {EXTDB_FAILED("extDB version is not compatible with current Altis life version. Require version 35 or higher.")};
+	if ((parseNumber _result) < 65) exitWith {EXTDB_FAILED("extDB version is not compatible with current Altis life version. Require version 65 or higher. Visit https://github.com/Torndeco/extDB2/releases")};
 	//Lets start logging in extDB
-	EXTDB "9:ADD:LOG:SPY_LOG:spyglass.log";
+	// EXTDB "9:ADD:LOG:SPY_LOG:spyglass.log";
+
 	//Initialize connection to Database
-	_result = EXTDB format["9:DATABASE:%1",DATABASE_SELECTION];
+	_result = EXTDB format["9:ADD_DATABASE:%1",DATABASE_SELECTION];
 	if(!(EQUAL(_result,"[1]"))) exitWith {EXTDB_FAILED("extDB: Error with Database Connection")};
-	_result = EXTDB format["9:ADD:DB_CUSTOM_v5:%1:altis-life-rpg-4",FETCH_CONST(life_sql_id)];
+	_result = EXTDB format["9:ADD_DATABASE_PROTOCOL:%1:SQL_CUSTOM_V2:%2:altis-life-rpg-4",DATABASE_SELECTION,FETCH_CONST(life_sql_id)];
 	if(!(EQUAL(_result,"[1]"))) exitWith {EXTDB_FAILED("extDB: Error with Database Connection")};
+
+	/*
 	//Initialize Logging options from extDB
 	if((EQUAL(EXTDB_SETTINGS("LOG"),1))) then {
 		{
@@ -70,6 +73,7 @@ if(isNil {GVAR_UINS "life_sql_id"}) then {
 		EXTDB format["9:ADD:MISC:%1",FETCH_CONST(MISC_ID)];
 		["diag_log",["extDB: MISC is enabled"]] call TON_fnc_logIt;
 	};
+	*/
 	EXTDB "9:LOCK";
 	["diag_log",["extDB: Connected to the Database"]] call TON_fnc_logIt;
 } else {
