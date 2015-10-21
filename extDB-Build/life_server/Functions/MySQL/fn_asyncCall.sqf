@@ -66,10 +66,9 @@ if (typeName _queryResult != "ARRAY") exitWith{[]};
 _return = (_queryResult select 1);
 
 // If no SQL data was present return an empty array
-if (count _return == 0) exitWith{[]};
-
 if(!_multiarr) then {
-        _return = _return select 0;
+    if (count _return == 0) exitWith{[]};
+    _return = _return select 0;
 };
 
 _return;
