@@ -14,5 +14,5 @@ _houseID = _house getVariable["house_id",-1];
 if(_houseID == -1) exitWith {}; //Dafuq?
 
 _query = format["housingUpdateInventory:%1:%2",_trunkData,_houseID];
-waitUntil{!DB_Async_Active};
+
 [_query,1] call DB_fnc_asyncCall;

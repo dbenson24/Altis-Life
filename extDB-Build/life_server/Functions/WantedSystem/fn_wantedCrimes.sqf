@@ -14,7 +14,7 @@ _ret = [_this,0,ObjNull,[ObjNull]] call BIS_fnc_param;
 _criminal = [_this,1,[],[]] call BIS_fnc_param;
 
 _result = format["wantedFetchCrimes:%1",_criminal select 0];
-waitUntil{!DB_Async_Active};
+
 _tickTime = diag_tickTime;
 _queryResult = [_result,2] call DB_fnc_asyncCall;
 

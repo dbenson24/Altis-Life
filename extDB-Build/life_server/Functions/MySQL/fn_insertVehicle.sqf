@@ -27,5 +27,4 @@ _query = format["vehicleInsert:%1:%2:%3:%4:%5:%6:%7:%8:%9",
 	_plate
 ];
 
-waitUntil {sleep (random 0.3); !DB_Async_Active};
 [_query,1] call DB_fnc_asyncCall;

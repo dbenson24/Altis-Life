@@ -18,5 +18,5 @@ _unit = owner _unit;
 
 _query = format["vehicleUpdateAlive:0:%1:%2",_pid,_vid];
 
-waitUntil {!DB_Async_Active};
+
 _thread = [_query,1] call DB_fnc_asyncCall;

@@ -11,7 +11,7 @@ if(isNull _house OR _uid == "") exitWith {};
 
 _housePos = getPosATL _house;
 
-waitUntil{!DB_Async_Active};
+
 _query = format["housingAddHouse:%1:%2:%3:%4:%5",_uid,_housePos,[[],0],[],1];
 _queryResult = [_query,2] call DB_fnc_asyncCall;
 systemChat format["House ID assigned: %1",_queryResult select 0];

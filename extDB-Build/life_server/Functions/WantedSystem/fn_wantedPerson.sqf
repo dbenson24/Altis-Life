@@ -14,7 +14,7 @@ if(isNull _unit) exitWith {[]};
 _uid = getPlayerUID player;
 
 _result = format["wantedFetchPerson:%1",_uid];
-waitUntil{!DB_Async_Active};
+
 _queryResult = [_result,2] call DB_fnc_asyncCall;
 if(count _queryResult == 0) exitWith {[]};
 _queryResult;

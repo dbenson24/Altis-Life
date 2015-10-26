@@ -48,7 +48,7 @@ while {true} do
 					_plate = _dbInfo select 1;
 
 					_query = format["vehicleUpdateActivePlate:0:%1:%2",_uid,_plate];
-					waitUntil {!DB_Async_Active};
+					
 					[_query,1] call DB_fnc_asyncCall;
 				};
 			};

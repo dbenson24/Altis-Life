@@ -10,7 +10,6 @@
 		1: INTEGER (1 = ASYNC + not return for update/insert, 2 = ASYNC + return for query's).
 		3: BOOL (True to return a single array, false to return multiple entries mainly for garage).
 */
-waitUntil {!DB_Async_Active};
 private["_queryStmt","_queryResult","_key","_mode","_return","_loop"];
 
 _tickTime = diag_tickTime;
@@ -22,7 +21,6 @@ _key = "extDB2" callExtension format["%1:%2:%3",_mode,(call life_sql_id),_queryS
 _key = call compile format["%1",_key];
 _key = _key select 1;
 
-DB_Async_Active = true;
 // Get Result via 4:x (single message return)  v19 and later
 _queryResult = "";
 _loop = true;
@@ -48,10 +46,7 @@ while{_loop} do
 	};
 };
 
-DB_Async_Active = false;
-
 _queryResult = call compile _queryResult;
-
 
 // Not needed, its SQF Code incase extDB ever returns error message i.e Database Died
 if (isNil "_queryResult") exitWith{[]};

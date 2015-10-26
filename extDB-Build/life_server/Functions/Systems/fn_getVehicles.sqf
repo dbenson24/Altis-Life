@@ -33,7 +33,6 @@ if(_side == "Error") exitWith {
 
 _query = format["vehiclesInfo:%1:%2:%3",_pid,_side,_type];
 
-waitUntil{sleep (random 0.3); !DB_Async_Active};
 _tickTime = diag_tickTime;
 _queryResult = [_query,2,true] call DB_fnc_asyncCall;
 

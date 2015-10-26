@@ -5,11 +5,11 @@
 	WHAT THE HELL DO YOU THINK IT DOES?!?!!??!?!!?!??!
 */
 private["_queryResult","_query","_count"];
-waitUntil{!DB_Async_Active};
+
 _count = (["housingCount",2] call DB_fnc_asyncCall) select 0;
 
 for [{_x=0},{_x<=_count},{_x=_x+10}] do {
-	waitUntil{!DB_Async_Active};
+	
 	_query = format["housingInit:%1",_x];
 	_queryResult = [_query,2,true] call DB_fnc_asyncCall;
 	if(count _queryResult == 0) exitWith {};

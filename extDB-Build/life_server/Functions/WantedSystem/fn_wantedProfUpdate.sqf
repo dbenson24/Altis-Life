@@ -15,7 +15,7 @@ if(_uid == "" OR  _name == "") exitWith {};
 _tickTime = diag_tickTime;
 
 _wantedCheck = format["wantedFetchName:%1",_uid];
-waitUntil{!DB_Async_Active};
+
 _wantedQuery = [_wantedCheck,2] call DB_fnc_asyncCall;
 if(count _wantedQuery == 0) exitWith {diag_log "Person not wanted, no update";};
 _wantedQuery = call compile format["%1",_wantedQuery];
@@ -23,7 +23,7 @@ _wantedQuery = call compile format["%1",_wantedQuery];
 if(_name != (_wantedQuery select 0)) then
 {
 	_query = format["wantedUpdateName:%2:%1",_uid,_name];
-	waitUntil {!DB_Async_Active};
+	
 	[_query,2] call DB_fnc_asyncCall;
 
 	if((EQUAL(EXTDB_SETTINGS("MySQL_Query"),1))) then {

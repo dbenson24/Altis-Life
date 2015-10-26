@@ -29,7 +29,6 @@ _query = switch(_side) do {
 	case independent: { format["playerIndependentInfo:%1",_uid];};
 };
 
-waitUntil{sleep (random 0.3); !DB_Async_Active};
 _tickTime = diag_tickTime;
 _queryResult = [_query,2] call DB_fnc_asyncCall;
 

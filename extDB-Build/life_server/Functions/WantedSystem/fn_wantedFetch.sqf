@@ -31,7 +31,7 @@ _tickTime = diag_tickTime;
 } forEach _units;
 
 _result = format["wantedFetchID:%1",_inStatement];
-waitUntil{!DB_Async_Active};
+
 _queryResult = [_result,2,true] call DB_fnc_asyncCall;
 
 {

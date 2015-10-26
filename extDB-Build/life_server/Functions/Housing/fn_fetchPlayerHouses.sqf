@@ -8,7 +8,7 @@ private["_query","_houses"];
 if(_this == "") exitWith {};
 
 _query = format["housingFetchPlayerHouse:%1",_this];
-waitUntil{!DB_Async_Active};
+
 _houses = [_query,2,true] call DB_fnc_asyncCall;
 
 _return = [];

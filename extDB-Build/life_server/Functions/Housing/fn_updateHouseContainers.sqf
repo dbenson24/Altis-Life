@@ -24,6 +24,6 @@ _arr = [];
 } foreach _containers;
 
 _query = format["houseUpdateContainer:%1:%2",_arr,_houseID];
-waitUntil{!DB_Async_Active};
+
 [_query,1] call DB_fnc_asyncCall;
 //systemChat "Query ran?";
