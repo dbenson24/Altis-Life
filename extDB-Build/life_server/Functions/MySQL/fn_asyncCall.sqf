@@ -19,7 +19,6 @@ _mode = [_this,1,1,[0]] call BIS_fnc_param;
 _multiarr = [_this,2,false,[false]] call BIS_fnc_param;
 
 _key = "extDB2" callExtension format["%1:%2:%3",_mode,(call life_sql_id),_queryStmt];
-if(_mode == 1) exitWith {DB_Async_Active = false; true};
 _key = call compile format["%1",_key];
 _key = _key select 1;
 
@@ -28,9 +27,6 @@ DB_Async_Active = true;
 _queryResult = "";
 _loop = true;
 
-waitUntil{uisleep (random .03); !DB_Async_ExtraLock};
-
-DB_Async_ExtraLock = true;
 while{_loop} do
 {
     _queryResult = "extDB2" callExtension format["4:%1", _key];
@@ -52,7 +48,6 @@ while{_loop} do
 	};
 };
 
-DB_Async_ExtraLock = false;
 DB_Async_Active = false;
 
 _queryResult = call compile _queryResult;
